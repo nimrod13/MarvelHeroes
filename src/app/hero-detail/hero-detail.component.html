@@ -11,7 +11,8 @@
         </div>
         <div>
           <label>Name:
-            <input dtInput [(ngModel)]="hero.name" placeholder="name" />
+            <em dt-inline-editor [(ngModel)]="hero.name" ariaLabelSave="Save name"
+              ariaLabelCancel="Cancel and discard changes"></em>
           </label>
         </div>
       </div>
@@ -34,5 +35,3 @@
   <button dt-button (click)="goBack()">Go back</button>
   <button dt-button (click)="save()">Save</button>
 </div>
-
-<app-attribution></app-attribution>

@@ -17,6 +17,7 @@ import { DtInputModule } from '@dynatrace/barista-components/input';
 import { DtLoadingDistractorModule } from '@dynatrace/barista-components/loading-distractor';
 import { DtButtonGroupModule } from '@dynatrace/barista-components/button-group';
 import { DtCardModule } from '@dynatrace/barista-components/card';
+import { DtInlineEditorModule } from '@dynatrace/barista-components/inline-editor';
 import { AttributionComponent } from './attribution/attribution.component';
 
 @NgModule({
@@ -42,6 +43,7 @@ import { AttributionComponent } from './attribution/attribution.component';
     BrowserAnimationsModule,
     DtButtonGroupModule,
     DtCardModule,
+    DtInlineEditorModule,
     DtLoadingDistractorModule
   ],
   providers: [],

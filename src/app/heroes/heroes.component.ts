@@ -34,7 +34,8 @@ export class HeroesComponent implements OnInit {
     name = name.trim();
     if (!name) { return; }
     // tslint:disable-next-line: max-line-length
-    this.heroes.push({ name, id: this.heroes[this.heroes.length - 1].id + 1, series: {}, thumbnail: { path: 'https://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/standard_xlarge.jpg', extension: 'jpg' } });
+    this.heroes.push({ name, id: this.heroService.newlyAddedId, series: {}, thumbnail: { path: 'https://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/standard_xlarge.jpg', extension: 'jpg' } });
+    this.heroService.newlyAddedId++;
     // this.heroService.addHero({ name } as Hero)
     //   .subscribe(hero => {
     //     this.heroes.push(hero);

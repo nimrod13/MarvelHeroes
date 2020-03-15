@@ -42,7 +42,7 @@ h4 {
   padding: 20px;
   text-align: center;
   color: #eee;
-  max-height: 120px;
+  min-height: 120px;
   min-width: 120px;
   background-color: #00848e;
   border-radius: 2px;
@@ -59,6 +59,10 @@ h4 {
 
 .grid-pad {
   padding: 10px 0;
+}
+
+.grid.grid-pad {
+  display: flex;
 }
 
 .grid-pad>[class*='col-']:last-of-type {

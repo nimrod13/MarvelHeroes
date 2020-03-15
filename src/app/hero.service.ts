@@ -21,6 +21,7 @@ export class HeroService {
   private marvelAPIBaseURL = 'https://gateway.marvel.com/v1/public/characters';
   private marvelAPIQueryParams = `ts=${this.marvelAPI.ts}&apikey=${this.marvelAPI.publicKey}&hash=${this.marvelAPI.hash}`;
   public heroes: Hero[];
+  public newlyAddedId = 20000;
 
   constructor(
     private http: HttpClient,
@@ -41,25 +42,31 @@ export class HeroService {
     return this.http.get<any>(marvelAPIURL)
       .pipe(
         tap(_ => this.log('fetched heroes')),
-        catchError(this.handleError<Hero[]>('getHeroes', [])),
-        map(res => res.data.results)
+        map(res => res.data.results),
+        catchError(this.handleError<Hero[]>('getHeroes', []))
       );
   }
-
-  // getHero(id: number): Observable<Hero> {
-  //   // TODO: send the message _after_ fetching the hero
-  //   this.messageService.add(`HeroService: fetched hero id=${id}`);
-  //   return of(HEROES.find(hero => hero.id === id));
-  // }
 
   /** GET hero by id. Will 404 if id not found */
   getHero(id: number): Observable<Hero> {
     const url = `${this.marvelAPIBaseURL}/${id}?${this.marvelAPIQueryParams}`;
     return this.http.get<any>(url).pipe(
-      tap(_ => this.log(`fetched hero id=${id}`)),
-      catchError(this.handleError<Hero>(`getHero id=${id}`)),
-      map(res => res.data.results[0])
+      tap(x => x.status === 'Ok' && x.data.results.length ?
+        this.log(`fetched heroes with id="${id}"`) :
+        this.log(`no heroes matching id "${id}" could be found`),
+      ),
+      map(res => res ? res.data.results[0] : null),
+      catchError(this.tryGetHeroLocally(id))
     );
+  }
+
+  tryGetHeroLocally(id: number): any{
+    if (!this.heroes || !this.heroes.length) {
+      // tslint:disable-next-line: max-line-length
+      return this.getHeroes().subscribe(heroes => { this.heroes = heroes; this.heroes && this.heroes.length ? this.heroes.find(h => h.id === id) : null; });
+    }
+
+    return this.handleError<Hero>(`getHero id=${id}`);
   }
 
   /** Log a HeroService message with the MessageService */
@@ -80,7 +87,7 @@ export class HeroService {
       console.error(error); // log to console instead
 
       // TODO: better job of transforming error for user consumption
-      this.log(`${operation} failed: ${error.message}`);
+      this.log(`${operation} failed: ${error && error.error ? error.error.status : error.message}`);
 
       // Let the app keep running by returning an empty result.
       return of(result as T);
@@ -145,8 +152,8 @@ export class HeroService {
         this.log(`found heroes matching "${term}"`) :
         this.log(`no heroes matching "${term}"`),
       ),
+      map(res => res.data.results),
       catchError(this.handleError<Hero[]>('searchHeroes', [])),
-      map(res => res.data.results)
     );
   }
 }
