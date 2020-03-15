@@ -1479,7 +1479,7 @@
           hash: 'f68daa7ad9dd734af8ebffd116a2c18d'
         }; // tslint:disable-next-line: max-line-length
 
-        this.marvelAPIBaseURL = 'http://gateway.marvel.com/v1/public/characters';
+        this.marvelAPIBaseURL = 'https://gateway.marvel.com/v1/public/characters';
         this.marvelAPIQueryParams = "ts=".concat(this.marvelAPI.ts, "&apikey=").concat(this.marvelAPI.publicKey, "&hash=").concat(this.marvelAPI.hash);
         this.httpOptions = {
           headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpHeaders"]({

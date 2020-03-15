@@ -18,7 +18,7 @@ export class HeroService {
     hash: 'f68daa7ad9dd734af8ebffd116a2c18d'
   };
   // tslint:disable-next-line: max-line-length
-  private marvelAPIBaseURL = 'http://gateway.marvel.com/v1/public/characters';
+  private marvelAPIBaseURL = 'https://gateway.marvel.com/v1/public/characters';
   private marvelAPIQueryParams = `ts=${this.marvelAPI.ts}&apikey=${this.marvelAPI.publicKey}&hash=${this.marvelAPI.hash}`;
   public heroes: Hero[];
 
