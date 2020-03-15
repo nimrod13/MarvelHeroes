@@ -87,7 +87,8 @@ img {
   font-weight: 700;
 }
 
-p {
+p,
+.hero_label {
   margin: 0;
   padding: 0;
 }

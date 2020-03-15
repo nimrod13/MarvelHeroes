@@ -141,7 +141,7 @@ export class HeroService {
 
     const url = `${this.marvelAPIBaseURL}?name=${term}&${this.marvelAPIQueryParams}`;
     return this.http.get<any>(url).pipe(
-      tap(x => x.length ?
+      tap(x => x.status === 'Ok' && x.data.results.length ?
         this.log(`found heroes matching "${term}"`) :
         this.log(`no heroes matching "${term}"`),
       ),

@@ -2,7 +2,7 @@
   <dt-card>
     <div *ngIf="messageService.messages.length">
       <dt-card-title>Messages</dt-card-title>
-      <button dt-button variant="secondary" class="clear" (click)="messageService.clear()">Clear</button>
+      <button dt-button variant="secondary" class="clear" (click)="messageService.clear()"><dt-icon name="delete"></dt-icon>Clear</button>
       <div *ngFor='let message of messageService.messages'> {{message}} </div>
     </div>
   </dt-card>
