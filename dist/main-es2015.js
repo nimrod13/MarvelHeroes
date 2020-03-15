@@ -45,7 +45,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<p>Data provided by Marvel. © 2014 Marvel</p>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<dt-card>\n  <p>Data provided by <a href=\"https://marvel.com\">Marvel</a>. © 2014 Marvel</p>\n</dt-card>\n");
 
 /***/ }),
 
@@ -58,7 +58,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<h2>Top Heroes</h2>\n<div class=\"grid grid-pad\">\n  <a *ngFor=\"let hero of heroes\" class=\"col-1-4\"\n      routerLink=\"/detail/{{hero.id}}\">\n    <div class=\"module hero\">\n      <h4>{{hero.name}}</h4>\n    </div>\n  </a>\n</div>\n\n<app-hero-search></app-hero-search>\n\n<app-attribution></app-attribution>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<h2>Top Heroes</h2>\n<div class=\"grid grid-pad\">\n  <a *ngFor=\"let hero of heroes\" class=\"col-1-4\"\n      routerLink=\"/detail/{{hero.id}}\">\n    <div class=\"module hero\">\n      <h4>{{hero.name}}</h4>\n    </div>\n  </a>\n</div>\n\n<app-hero-search></app-hero-search>\n");
 
 /***/ }),
 
@@ -71,7 +71,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div *ngIf=\"hero\" class=\"details\">\n  <h2>{{hero.name | uppercase}}</h2>\n\n  <div class=\"info_container\">\n    <div class=\"info\">\n      <img src=\"{{getImage()}}\" alt=\"{{hero.name}}\" />\n      <div class=\"info_text_container\">\n        <div class=\"id_box\">\n          <label class=\"hero_label\">ID</label>\n          <p class=\"hero_id\">{{hero.id}}</p>\n        </div>\n        <div>\n          <label>Name:\n            <input dtInput [(ngModel)]=\"hero.name\" placeholder=\"name\" />\n          </label>\n        </div>\n      </div>\n    </div>\n  </div>\n\n  <div class=\"info_container\" *ngIf=\"getSeriesItems(hero)\">\n    <div class=\"series\">\n      <div class=\"series_text_container\">\n        <div>\n          <label>Series</label>\n          <p class=\"hero_serie\" *ngFor=\"let serie of getSeriesItems(hero)\">{{serie.name}}</p>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n\n<div>\n  <button dt-button (click)=\"goBack()\">Go back</button>\n  <button dt-button (click)=\"save()\">Save</button>\n</div>\n\n<app-attribution></app-attribution>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<div *ngIf=\"hero\" class=\"details\">\n  <h2>{{hero.name | uppercase}}</h2>\n\n  <div class=\"info_container\">\n    <div class=\"info\">\n      <img src=\"{{getImage()}}\" alt=\"{{hero.name}}\" />\n      <div class=\"info_text_container\">\n        <div class=\"id_box\">\n          <label class=\"hero_label\">ID</label>\n          <p class=\"hero_id\">{{hero.id}}</p>\n        </div>\n        <div>\n          <label>Name:\n            <em dt-inline-editor [(ngModel)]=\"hero.name\" ariaLabelSave=\"Save name\"\n              ariaLabelCancel=\"Cancel and discard changes\"></em>\n          </label>\n        </div>\n      </div>\n    </div>\n  </div>\n\n  <div class=\"info_container\" *ngIf=\"getSeriesItems(hero)\">\n    <div class=\"series\">\n      <div class=\"series_text_container\">\n        <div>\n          <label>Series</label>\n          <p class=\"hero_serie\" *ngFor=\"let serie of getSeriesItems(hero)\">{{serie.name}}</p>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n\n<div>\n  <button dt-button (click)=\"goBack()\">Go back</button>\n  <button dt-button (click)=\"save()\">Save</button>\n</div>\n");
 
 /***/ }),
 
@@ -84,7 +84,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div id=\"search-component\">\n  <h3><label for=\"search-box\">Hero Search</label></h3>\n  <input #searchBox dtInput id=\"search-box\" (input)=\"search(searchBox.value)\" />\n\n  <ul class=\"search-result\">\n    <li *ngFor=\"let hero of heroes$ | async\">\n      <a routerLink=\"/detail/{{hero.id}}\">\n        {{hero.name}}\n      </a>\n    </li>\n  </ul>\n</div>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<dt-card>\n  <dt-card-title>\n    <label for=\"search-box\">Search for hero</label>\n  </dt-card-title>\n  <input #searchBox dtInput id=\"search-box\" (input)=\"search(searchBox.value)\" />\n\n  <ul class=\"search-result\">\n    <li *ngFor=\"let hero of heroes$ | async\">\n      <a routerLink=\"/detail/{{hero.id}}\">\n        {{hero.name}}\n      </a>\n    </li>\n  </ul>\n</dt-card>\n");
 
 /***/ }),
 
@@ -97,7 +97,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<h2>Heroes</h2>\n\n<div class=\"inline\">\n  <input type=\"text\" dtInput placeholder=\"Please add hero name\" #heroName />\n  <!-- (click) passes input value to add() and then clears the input -->\n  <button dt-button (click)=\"add(heroName.value); heroName.value=''\">\n    <dt-icon name=\"plus-add\"></dt-icon>\n    Add\n  </button>\n</div>\n\n<ul class=\"heroes\" *ngIf=\"heroes\">\n  <li *ngFor=\"let hero of heroes\">\n    <a routerLink=\"/detail/{{hero.id}}\">\n      <span class=\"badge\">{{hero.id}}</span>\n      <span class=\"name\">{{hero.name}}</span>\n    </a>\n    <button class=\"delete\" title=\"delete hero\" (click)=\"delete(hero)\">\n      <!-- <dt-icon name=\"abort\"></dt-icon> -->\n      x\n    </button>\n  </li>\n\n</ul>\n\n<app-attribution></app-attribution>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<h2>Heroes</h2>\n\n<div class=\"inline\">\n  <input type=\"text\" dtInput placeholder=\"Please add hero name\" #heroName />\n  <!-- (click) passes input value to add() and then clears the input -->\n  <button dt-button (click)=\"add(heroName.value); heroName.value=''\">\n    <dt-icon name=\"plus-add\"></dt-icon>\n    Add\n  </button>\n</div>\n\n<ul class=\"heroes\" *ngIf=\"heroService.heroes\">\n  <li *ngFor=\"let hero of heroService.heroes\">\n    <a routerLink=\"/detail/{{hero.id}}\">\n      <span class=\"badge\">{{hero.id}}</span>\n      <span class=\"name\">{{hero.name}}</span>\n    </a>\n    <button class=\"delete\" title=\"delete hero\" (click)=\"delete(hero)\">\n      <!-- <dt-icon name=\"abort\"></dt-icon> -->\n      x\n    </button>\n  </li>\n\n</ul>\n\n<app-attribution></app-attribution>\n");
 
 /***/ }),
 
@@ -110,7 +110,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"dt-demo-card\">\n  <dt-card>\n    <div *ngIf=\"messageService.messages.length\">\n      <dt-card-title> Messages </dt-card-title>\n      <button dt-button variant=\"secondary\" class=\"clear\" (click)=\"messageService.clear()\">\n        <dt-icon name=\"delete\"></dt-icon>Clear\n      </button>\n      <div *ngFor='let message of messageService.messages'> {{message}} </div>\n    </div>\n  </dt-card>\n</div>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"dt-demo-card\">\n  <dt-card>\n    <div *ngIf=\"messageService.messages.length\">\n      <dt-card-title> Messages </dt-card-title>\n      <button dt-button variant=\"secondary\" class=\"clear\" (click)=\"messageService.clear()\">\n        <dt-icon name=\"delete\"></dt-icon>Clear\n      </button>\n      <div class=\"messages\" *ngFor='let message of messageService.messages'>\n        <span class=\"message\">{{message}}</span>\n      </div>\n    </div>\n  </dt-card>\n\n  <app-attribution></app-attribution>\n</div>\n");
 
 /***/ }),
 
@@ -458,11 +458,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _dynatrace_barista_components_loading_distractor__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @dynatrace/barista-components/loading-distractor */ "./node_modules/@dynatrace/barista-components/fesm2015/dynatrace-barista-components-loading-distractor.js");
 /* harmony import */ var _dynatrace_barista_components_button_group__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @dynatrace/barista-components/button-group */ "./node_modules/@dynatrace/barista-components/fesm2015/dynatrace-barista-components-button-group.js");
 /* harmony import */ var _dynatrace_barista_components_card__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @dynatrace/barista-components/card */ "./node_modules/@dynatrace/barista-components/fesm2015/dynatrace-barista-components-card.js");
-/* harmony import */ var _attribution_attribution_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./attribution/attribution.component */ "./src/app/attribution/attribution.component.ts");
+/* harmony import */ var _dynatrace_barista_components_inline_editor__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @dynatrace/barista-components/inline-editor */ "./node_modules/@dynatrace/barista-components/fesm2015/dynatrace-barista-components-inline-editor.js");
+/* harmony import */ var _attribution_attribution_component__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./attribution/attribution.component */ "./src/app/attribution/attribution.component.ts");
 
 
 
  // <-- NgModel lives here
+
 
 
 
@@ -491,7 +493,7 @@ AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
             _messages_messages_component__WEBPACK_IMPORTED_MODULE_9__["MessagesComponent"],
             _dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_10__["DashboardComponent"],
             _hero_search_hero_search_component__WEBPACK_IMPORTED_MODULE_11__["HeroSearchComponent"],
-            _attribution_attribution_component__WEBPACK_IMPORTED_MODULE_20__["AttributionComponent"]
+            _attribution_attribution_component__WEBPACK_IMPORTED_MODULE_21__["AttributionComponent"]
         ],
         imports: [
             _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"],
@@ -506,6 +508,7 @@ AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
             _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_13__["BrowserAnimationsModule"],
             _dynatrace_barista_components_button_group__WEBPACK_IMPORTED_MODULE_18__["DtButtonGroupModule"],
             _dynatrace_barista_components_card__WEBPACK_IMPORTED_MODULE_19__["DtCardModule"],
+            _dynatrace_barista_components_inline_editor__WEBPACK_IMPORTED_MODULE_20__["DtInlineEditorModule"],
             _dynatrace_barista_components_loading_distractor__WEBPACK_IMPORTED_MODULE_17__["DtLoadingDistractorModule"]
         ],
         providers: [],
@@ -526,7 +529,7 @@ AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("p {\r\n  color: gray;\r\n  font-size: 11px;\r\n}\r\n\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvYXR0cmlidXRpb24vYXR0cmlidXRpb24uY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLFdBQVc7RUFDWCxlQUFlO0FBQ2pCIiwiZmlsZSI6InNyYy9hcHAvYXR0cmlidXRpb24vYXR0cmlidXRpb24uY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbInAge1xyXG4gIGNvbG9yOiBncmF5O1xyXG4gIGZvbnQtc2l6ZTogMTFweDtcclxufVxyXG4iXX0= */");
+/* harmony default export */ __webpack_exports__["default"] = ("p {\r\n  color: gray;\r\n  font-size: 11px;\r\n}\r\n\r\na {\r\n  text-decoration: none;\r\n  color: #00848e;\r\n}\r\n\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvYXR0cmlidXRpb24vYXR0cmlidXRpb24uY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLFdBQVc7RUFDWCxlQUFlO0FBQ2pCOztBQUVBO0VBQ0UscUJBQXFCO0VBQ3JCLGNBQWM7QUFDaEIiLCJmaWxlIjoic3JjL2FwcC9hdHRyaWJ1dGlvbi9hdHRyaWJ1dGlvbi5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsicCB7XHJcbiAgY29sb3I6IGdyYXk7XHJcbiAgZm9udC1zaXplOiAxMXB4O1xyXG59XHJcblxyXG5hIHtcclxuICB0ZXh0LWRlY29yYXRpb246IG5vbmU7XHJcbiAgY29sb3I6ICMwMDg0OGU7XHJcbn1cclxuIl19 */");
 
 /***/ }),
 
@@ -570,7 +573,7 @@ AttributionComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("/* DashboardComponent's private CSS styles */\r\n[class*='col-'] {\r\n  float: left;\r\n  padding-right: 20px;\r\n  padding-bottom: 20px;\r\n}\r\n[class*='col-']:last-of-type {\r\n  padding-right: 0;\r\n}\r\na {\r\n  text-decoration: none;\r\n}\r\n*,\r\n*:after,\r\n*:before {\r\n  box-sizing: border-box;\r\n}\r\nh2 {\r\n  text-align: center;\r\n  margin-bottom: 0;\r\n}\r\nh4 {\r\n  position: relative;\r\n}\r\n.grid {\r\n  margin: 0;\r\n}\r\n.col-1-4 {\r\n  width: 25%;\r\n}\r\n.module {\r\n  padding: 20px;\r\n  text-align: center;\r\n  color: #eee;\r\n  max-height: 120px;\r\n  min-width: 120px;\r\n  background-color: #00848e;\r\n  border-radius: 2px;\r\n  display: -webkit-box;\r\n  display: flex;\r\n  -webkit-box-pack: center;\r\n          justify-content: center;\r\n  -webkit-box-align: center;\r\n          align-items: center;\r\n}\r\n.module:hover {\r\n  background-color: #dfe7e7;\r\n  cursor: pointer;\r\n  color: #00848e;\r\n}\r\n.grid-pad {\r\n  padding: 10px 0;\r\n}\r\n.grid-pad>[class*='col-']:last-of-type {\r\n  padding-right: 20px;\r\n}\r\n@media (max-width: 600px) {\r\n  .module {\r\n    font-size: 10px;\r\n    max-height: 75px;\r\n  }\r\n\r\n  .module.hero {\r\n    padding: 10px;\r\n    min-height: 80px;\r\n  }\r\n}\r\n@media (min-width: 601px) and (max-width: 1024px) {\r\n  .module.hero {\r\n    min-height: 120px;\r\n  }\r\n}\r\n@media (max-width: 1024px) {\r\n  .grid {\r\n    margin: 0;\r\n  }\r\n\r\n  .module {\r\n    min-width: 60px;\r\n  }\r\n}\r\n/*\r\nCopyright Google LLC. All Rights Reserved.\r\nUse of this source code is governed by an MIT-style license that\r\ncan be found in the LICENSE file at http://angular.io/license\r\n*/\r\n\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvZGFzaGJvYXJkL2Rhc2hib2FyZC5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBLDRDQUE0QztBQUM1QztFQUNFLFdBQVc7RUFDWCxtQkFBbUI7RUFDbkIsb0JBQW9CO0FBQ3RCO0FBRUE7RUFDRSxnQkFBZ0I7QUFDbEI7QUFFQTtFQUNFLHFCQUFxQjtBQUN2QjtBQUVBOzs7RUFLRSxzQkFBc0I7QUFDeEI7QUFFQTtFQUNFLGtCQUFrQjtFQUNsQixnQkFBZ0I7QUFDbEI7QUFFQTtFQUNFLGtCQUFrQjtBQUNwQjtBQUVBO0VBQ0UsU0FBUztBQUNYO0FBRUE7RUFDRSxVQUFVO0FBQ1o7QUFFQTtFQUNFLGFBQWE7RUFDYixrQkFBa0I7RUFDbEIsV0FBVztFQUNYLGlCQUFpQjtFQUNqQixnQkFBZ0I7RUFDaEIseUJBQXlCO0VBQ3pCLGtCQUFrQjtFQUNsQixvQkFBYTtFQUFiLGFBQWE7RUFDYix3QkFBdUI7VUFBdkIsdUJBQXVCO0VBQ3ZCLHlCQUFtQjtVQUFuQixtQkFBbUI7QUFDckI7QUFFQTtFQUNFLHlCQUF5QjtFQUN6QixlQUFlO0VBQ2YsY0FBYztBQUNoQjtBQUVBO0VBQ0UsZUFBZTtBQUNqQjtBQUVBO0VBQ0UsbUJBQW1CO0FBQ3JCO0FBRUE7RUFDRTtJQUNFLGVBQWU7SUFDZixnQkFBZ0I7RUFDbEI7O0VBRUE7SUFDRSxhQUFhO0lBQ2IsZ0JBQWdCO0VBQ2xCO0FBQ0Y7QUFFQTtFQUNFO0lBQ0UsaUJBQWlCO0VBQ25CO0FBQ0Y7QUFFQTtFQUNFO0lBQ0UsU0FBUztFQUNYOztFQUVBO0lBQ0UsZUFBZTtFQUNqQjtBQUNGO0FBR0E7Ozs7Q0FJQyIsImZpbGUiOiJzcmMvYXBwL2Rhc2hib2FyZC9kYXNoYm9hcmQuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi8qIERhc2hib2FyZENvbXBvbmVudCdzIHByaXZhdGUgQ1NTIHN0eWxlcyAqL1xyXG5bY2xhc3MqPSdjb2wtJ10ge1xyXG4gIGZsb2F0OiBsZWZ0O1xyXG4gIHBhZGRpbmctcmlnaHQ6IDIwcHg7XHJcbiAgcGFkZGluZy1ib3R0b206IDIwcHg7XHJcbn1cclxuXHJcbltjbGFzcyo9J2NvbC0nXTpsYXN0LW9mLXR5cGUge1xyXG4gIHBhZGRpbmctcmlnaHQ6IDA7XHJcbn1cclxuXHJcbmEge1xyXG4gIHRleHQtZGVjb3JhdGlvbjogbm9uZTtcclxufVxyXG5cclxuKixcclxuKjphZnRlcixcclxuKjpiZWZvcmUge1xyXG4gIC13ZWJraXQtYm94LXNpemluZzogYm9yZGVyLWJveDtcclxuICAtbW96LWJveC1zaXppbmc6IGJvcmRlci1ib3g7XHJcbiAgYm94LXNpemluZzogYm9yZGVyLWJveDtcclxufVxyXG5cclxuaDIge1xyXG4gIHRleHQtYWxpZ246IGNlbnRlcjtcclxuICBtYXJnaW4tYm90dG9tOiAwO1xyXG59XHJcblxyXG5oNCB7XHJcbiAgcG9zaXRpb246IHJlbGF0aXZlO1xyXG59XHJcblxyXG4uZ3JpZCB7XHJcbiAgbWFyZ2luOiAwO1xyXG59XHJcblxyXG4uY29sLTEtNCB7XHJcbiAgd2lkdGg6IDI1JTtcclxufVxyXG5cclxuLm1vZHVsZSB7XHJcbiAgcGFkZGluZzogMjBweDtcclxuICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbiAgY29sb3I6ICNlZWU7XHJcbiAgbWF4LWhlaWdodDogMTIwcHg7XHJcbiAgbWluLXdpZHRoOiAxMjBweDtcclxuICBiYWNrZ3JvdW5kLWNvbG9yOiAjMDA4NDhlO1xyXG4gIGJvcmRlci1yYWRpdXM6IDJweDtcclxuICBkaXNwbGF5OiBmbGV4O1xyXG4gIGp1c3RpZnktY29udGVudDogY2VudGVyO1xyXG4gIGFsaWduLWl0ZW1zOiBjZW50ZXI7XHJcbn1cclxuXHJcbi5tb2R1bGU6aG92ZXIge1xyXG4gIGJhY2tncm91bmQtY29sb3I6ICNkZmU3ZTc7XHJcbiAgY3Vyc29yOiBwb2ludGVyO1xyXG4gIGNvbG9yOiAjMDA4NDhlO1xyXG59XHJcblxyXG4uZ3JpZC1wYWQge1xyXG4gIHBhZGRpbmc6IDEwcHggMDtcclxufVxyXG5cclxuLmdyaWQtcGFkPltjbGFzcyo9J2NvbC0nXTpsYXN0LW9mLXR5cGUge1xyXG4gIHBhZGRpbmctcmlnaHQ6IDIwcHg7XHJcbn1cclxuXHJcbkBtZWRpYSAobWF4LXdpZHRoOiA2MDBweCkge1xyXG4gIC5tb2R1bGUge1xyXG4gICAgZm9udC1zaXplOiAxMHB4O1xyXG4gICAgbWF4LWhlaWdodDogNzVweDtcclxuICB9XHJcblxyXG4gIC5tb2R1bGUuaGVybyB7XHJcbiAgICBwYWRkaW5nOiAxMHB4O1xyXG4gICAgbWluLWhlaWdodDogODBweDtcclxuICB9XHJcbn1cclxuXHJcbkBtZWRpYSAobWluLXdpZHRoOiA2MDFweCkgYW5kIChtYXgtd2lkdGg6IDEwMjRweCkge1xyXG4gIC5tb2R1bGUuaGVybyB7XHJcbiAgICBtaW4taGVpZ2h0OiAxMjBweDtcclxuICB9XHJcbn1cclxuXHJcbkBtZWRpYSAobWF4LXdpZHRoOiAxMDI0cHgpIHtcclxuICAuZ3JpZCB7XHJcbiAgICBtYXJnaW46IDA7XHJcbiAgfVxyXG5cclxuICAubW9kdWxlIHtcclxuICAgIG1pbi13aWR0aDogNjBweDtcclxuICB9XHJcbn1cclxuXHJcblxyXG4vKlxyXG5Db3B5cmlnaHQgR29vZ2xlIExMQy4gQWxsIFJpZ2h0cyBSZXNlcnZlZC5cclxuVXNlIG9mIHRoaXMgc291cmNlIGNvZGUgaXMgZ292ZXJuZWQgYnkgYW4gTUlULXN0eWxlIGxpY2Vuc2UgdGhhdFxyXG5jYW4gYmUgZm91bmQgaW4gdGhlIExJQ0VOU0UgZmlsZSBhdCBodHRwOi8vYW5ndWxhci5pby9saWNlbnNlXHJcbiovXHJcbiJdfQ== */");
+/* harmony default export */ __webpack_exports__["default"] = ("/* DashboardComponent's private CSS styles */\r\n[class*='col-'] {\r\n  float: left;\r\n  padding-right: 20px;\r\n  padding-bottom: 20px;\r\n}\r\n[class*='col-']:last-of-type {\r\n  padding-right: 0;\r\n}\r\na {\r\n  text-decoration: none;\r\n}\r\n*,\r\n*:after,\r\n*:before {\r\n  box-sizing: border-box;\r\n}\r\nh2 {\r\n  text-align: center;\r\n  margin-bottom: 0;\r\n}\r\nh4 {\r\n  position: relative;\r\n}\r\n.grid {\r\n  margin: 0;\r\n}\r\n.col-1-4 {\r\n  width: 25%;\r\n}\r\n.module {\r\n  padding: 20px;\r\n  text-align: center;\r\n  color: #eee;\r\n  min-height: 120px;\r\n  min-width: 120px;\r\n  background-color: #00848e;\r\n  border-radius: 2px;\r\n  display: -webkit-box;\r\n  display: flex;\r\n  -webkit-box-pack: center;\r\n          justify-content: center;\r\n  -webkit-box-align: center;\r\n          align-items: center;\r\n}\r\n.module:hover {\r\n  background-color: #dfe7e7;\r\n  cursor: pointer;\r\n  color: #00848e;\r\n}\r\n.grid-pad {\r\n  padding: 10px 0;\r\n}\r\n.grid.grid-pad {\r\n  display: -webkit-box;\r\n  display: flex;\r\n}\r\n.grid-pad>[class*='col-']:last-of-type {\r\n  padding-right: 20px;\r\n}\r\n@media (max-width: 600px) {\r\n  .module {\r\n    font-size: 10px;\r\n    max-height: 75px;\r\n  }\r\n\r\n  .module.hero {\r\n    padding: 10px;\r\n    min-height: 80px;\r\n  }\r\n}\r\n@media (min-width: 601px) and (max-width: 1024px) {\r\n  .module.hero {\r\n    min-height: 120px;\r\n  }\r\n}\r\n@media (max-width: 1024px) {\r\n  .grid {\r\n    margin: 0;\r\n  }\r\n\r\n  .module {\r\n    min-width: 60px;\r\n  }\r\n}\r\n/*\r\nCopyright Google LLC. All Rights Reserved.\r\nUse of this source code is governed by an MIT-style license that\r\ncan be found in the LICENSE file at http://angular.io/license\r\n*/\r\n\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvZGFzaGJvYXJkL2Rhc2hib2FyZC5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBLDRDQUE0QztBQUM1QztFQUNFLFdBQVc7RUFDWCxtQkFBbUI7RUFDbkIsb0JBQW9CO0FBQ3RCO0FBRUE7RUFDRSxnQkFBZ0I7QUFDbEI7QUFFQTtFQUNFLHFCQUFxQjtBQUN2QjtBQUVBOzs7RUFLRSxzQkFBc0I7QUFDeEI7QUFFQTtFQUNFLGtCQUFrQjtFQUNsQixnQkFBZ0I7QUFDbEI7QUFFQTtFQUNFLGtCQUFrQjtBQUNwQjtBQUVBO0VBQ0UsU0FBUztBQUNYO0FBRUE7RUFDRSxVQUFVO0FBQ1o7QUFFQTtFQUNFLGFBQWE7RUFDYixrQkFBa0I7RUFDbEIsV0FBVztFQUNYLGlCQUFpQjtFQUNqQixnQkFBZ0I7RUFDaEIseUJBQXlCO0VBQ3pCLGtCQUFrQjtFQUNsQixvQkFBYTtFQUFiLGFBQWE7RUFDYix3QkFBdUI7VUFBdkIsdUJBQXVCO0VBQ3ZCLHlCQUFtQjtVQUFuQixtQkFBbUI7QUFDckI7QUFFQTtFQUNFLHlCQUF5QjtFQUN6QixlQUFlO0VBQ2YsY0FBYztBQUNoQjtBQUVBO0VBQ0UsZUFBZTtBQUNqQjtBQUVBO0VBQ0Usb0JBQWE7RUFBYixhQUFhO0FBQ2Y7QUFFQTtFQUNFLG1CQUFtQjtBQUNyQjtBQUVBO0VBQ0U7SUFDRSxlQUFlO0lBQ2YsZ0JBQWdCO0VBQ2xCOztFQUVBO0lBQ0UsYUFBYTtJQUNiLGdCQUFnQjtFQUNsQjtBQUNGO0FBRUE7RUFDRTtJQUNFLGlCQUFpQjtFQUNuQjtBQUNGO0FBRUE7RUFDRTtJQUNFLFNBQVM7RUFDWDs7RUFFQTtJQUNFLGVBQWU7RUFDakI7QUFDRjtBQUdBOzs7O0NBSUMiLCJmaWxlIjoic3JjL2FwcC9kYXNoYm9hcmQvZGFzaGJvYXJkLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIvKiBEYXNoYm9hcmRDb21wb25lbnQncyBwcml2YXRlIENTUyBzdHlsZXMgKi9cclxuW2NsYXNzKj0nY29sLSddIHtcclxuICBmbG9hdDogbGVmdDtcclxuICBwYWRkaW5nLXJpZ2h0OiAyMHB4O1xyXG4gIHBhZGRpbmctYm90dG9tOiAyMHB4O1xyXG59XHJcblxyXG5bY2xhc3MqPSdjb2wtJ106bGFzdC1vZi10eXBlIHtcclxuICBwYWRkaW5nLXJpZ2h0OiAwO1xyXG59XHJcblxyXG5hIHtcclxuICB0ZXh0LWRlY29yYXRpb246IG5vbmU7XHJcbn1cclxuXHJcbiosXHJcbio6YWZ0ZXIsXHJcbio6YmVmb3JlIHtcclxuICAtd2Via2l0LWJveC1zaXppbmc6IGJvcmRlci1ib3g7XHJcbiAgLW1vei1ib3gtc2l6aW5nOiBib3JkZXItYm94O1xyXG4gIGJveC1zaXppbmc6IGJvcmRlci1ib3g7XHJcbn1cclxuXHJcbmgyIHtcclxuICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbiAgbWFyZ2luLWJvdHRvbTogMDtcclxufVxyXG5cclxuaDQge1xyXG4gIHBvc2l0aW9uOiByZWxhdGl2ZTtcclxufVxyXG5cclxuLmdyaWQge1xyXG4gIG1hcmdpbjogMDtcclxufVxyXG5cclxuLmNvbC0xLTQge1xyXG4gIHdpZHRoOiAyNSU7XHJcbn1cclxuXHJcbi5tb2R1bGUge1xyXG4gIHBhZGRpbmc6IDIwcHg7XHJcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xyXG4gIGNvbG9yOiAjZWVlO1xyXG4gIG1pbi1oZWlnaHQ6IDEyMHB4O1xyXG4gIG1pbi13aWR0aDogMTIwcHg7XHJcbiAgYmFja2dyb3VuZC1jb2xvcjogIzAwODQ4ZTtcclxuICBib3JkZXItcmFkaXVzOiAycHg7XHJcbiAgZGlzcGxheTogZmxleDtcclxuICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcclxuICBhbGlnbi1pdGVtczogY2VudGVyO1xyXG59XHJcblxyXG4ubW9kdWxlOmhvdmVyIHtcclxuICBiYWNrZ3JvdW5kLWNvbG9yOiAjZGZlN2U3O1xyXG4gIGN1cnNvcjogcG9pbnRlcjtcclxuICBjb2xvcjogIzAwODQ4ZTtcclxufVxyXG5cclxuLmdyaWQtcGFkIHtcclxuICBwYWRkaW5nOiAxMHB4IDA7XHJcbn1cclxuXHJcbi5ncmlkLmdyaWQtcGFkIHtcclxuICBkaXNwbGF5OiBmbGV4O1xyXG59XHJcblxyXG4uZ3JpZC1wYWQ+W2NsYXNzKj0nY29sLSddOmxhc3Qtb2YtdHlwZSB7XHJcbiAgcGFkZGluZy1yaWdodDogMjBweDtcclxufVxyXG5cclxuQG1lZGlhIChtYXgtd2lkdGg6IDYwMHB4KSB7XHJcbiAgLm1vZHVsZSB7XHJcbiAgICBmb250LXNpemU6IDEwcHg7XHJcbiAgICBtYXgtaGVpZ2h0OiA3NXB4O1xyXG4gIH1cclxuXHJcbiAgLm1vZHVsZS5oZXJvIHtcclxuICAgIHBhZGRpbmc6IDEwcHg7XHJcbiAgICBtaW4taGVpZ2h0OiA4MHB4O1xyXG4gIH1cclxufVxyXG5cclxuQG1lZGlhIChtaW4td2lkdGg6IDYwMXB4KSBhbmQgKG1heC13aWR0aDogMTAyNHB4KSB7XHJcbiAgLm1vZHVsZS5oZXJvIHtcclxuICAgIG1pbi1oZWlnaHQ6IDEyMHB4O1xyXG4gIH1cclxufVxyXG5cclxuQG1lZGlhIChtYXgtd2lkdGg6IDEwMjRweCkge1xyXG4gIC5ncmlkIHtcclxuICAgIG1hcmdpbjogMDtcclxuICB9XHJcblxyXG4gIC5tb2R1bGUge1xyXG4gICAgbWluLXdpZHRoOiA2MHB4O1xyXG4gIH1cclxufVxyXG5cclxuXHJcbi8qXHJcbkNvcHlyaWdodCBHb29nbGUgTExDLiBBbGwgUmlnaHRzIFJlc2VydmVkLlxyXG5Vc2Ugb2YgdGhpcyBzb3VyY2UgY29kZSBpcyBnb3Zlcm5lZCBieSBhbiBNSVQtc3R5bGUgbGljZW5zZSB0aGF0XHJcbmNhbiBiZSBmb3VuZCBpbiB0aGUgTElDRU5TRSBmaWxlIGF0IGh0dHA6Ly9hbmd1bGFyLmlvL2xpY2Vuc2VcclxuKi9cclxuIl19 */");
 
 /***/ }),
 
@@ -668,7 +671,10 @@ let HeroDetailComponent = class HeroDetailComponent {
     }
     getHero() {
         const id = +this.route.snapshot.paramMap.get('id');
-        this.heroService.getHero(id).subscribe(hero => this.hero = hero);
+        this.hero = this.heroService.tryGetHeroLocally(id) || null;
+        if (!this.hero) {
+            this.heroService.getHero(id).subscribe(hero => this.hero = hero);
+        }
     }
     goBack() {
         this.location.back();
@@ -682,7 +688,7 @@ let HeroDetailComponent = class HeroDetailComponent {
         return `${this.hero.thumbnail.path}/standard_xlarge.jpg`;
     }
     getSeriesItems(hero) {
-        return hero.series.available > 0 ? hero.series.items : [];
+        return hero.series.available > 0 ? hero.series.items : null;
     }
 };
 HeroDetailComponent.ctorParameters = () => [
@@ -808,6 +814,7 @@ let HeroService = class HeroService {
         // tslint:disable-next-line: max-line-length
         this.marvelAPIBaseURL = 'https://gateway.marvel.com/v1/public/characters';
         this.marvelAPIQueryParams = `ts=${this.marvelAPI.ts}&apikey=${this.marvelAPI.publicKey}&hash=${this.marvelAPI.hash}`;
+        this.newlyAddedId = 20000;
         this.httpOptions = {
             headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpHeaders"]({ 'Content-Type': 'application/json' })
         };
@@ -820,17 +827,24 @@ let HeroService = class HeroService {
     getHeroes() {
         const marvelAPIURL = `${this.marvelAPIBaseURL}?${this.marvelAPIQueryParams}`;
         return this.http.get(marvelAPIURL)
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(_ => this.log('fetched heroes')), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["catchError"])(this.handleError('getHeroes', [])), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(res => res.data.results));
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(_ => this.log('fetched heroes')), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(res => res.data.results), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["catchError"])(this.handleError('getHeroes', [])));
     }
-    // getHero(id: number): Observable<Hero> {
-    //   // TODO: send the message _after_ fetching the hero
-    //   this.messageService.add(`HeroService: fetched hero id=${id}`);
-    //   return of(HEROES.find(hero => hero.id === id));
-    // }
     /** GET hero by id. Will 404 if id not found */
     getHero(id) {
         const url = `${this.marvelAPIBaseURL}/${id}?${this.marvelAPIQueryParams}`;
-        return this.http.get(url).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(_ => this.log(`fetched hero id=${id}`)), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["catchError"])(this.handleError(`getHero id=${id}`)), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(res => res.data.results[0]));
+        return this.http.get(url).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(x => x.status === 'Ok' && x.data.results.length ?
+            this.log(`fetched heroes with id="${id}"`) :
+            this.log(`no heroes matching id "${id}" could be found`)), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(res => res ? res.data.results[0] : null), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["catchError"])(this.handleError(`getHero from API with id=${id}`)));
+    }
+    tryGetHeroLocally(id) {
+        if (!this.heroes || !this.heroes.length) {
+            this.getHeroes().subscribe(heroes => { this.heroes = heroes; return this.findHeroById(id); });
+            return;
+        }
+        return this.findHeroById(id);
+    }
+    findHeroById(id) {
+        return this.heroes.find(h => h.id === id);
     }
     /** Log a HeroService message with the MessageService */
     log(message) {
@@ -847,7 +861,7 @@ let HeroService = class HeroService {
             // TODO: send the error to remote logging infrastructure
             console.error(error); // log to console instead
             // TODO: better job of transforming error for user consumption
-            this.log(`${operation} failed: ${error.message}`);
+            this.log(`${operation} failed: ${error && error.error ? error.error.status : error.message}`);
             // Let the app keep running by returning an empty result.
             return Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["of"])(result);
         };
@@ -890,7 +904,7 @@ let HeroService = class HeroService {
         const url = `${this.marvelAPIBaseURL}?name=${term}&${this.marvelAPIQueryParams}`;
         return this.http.get(url).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(x => x.status === 'Ok' && x.data.results.length ?
             this.log(`found heroes matching "${term}"`) :
-            this.log(`no heroes matching "${term}"`)), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["catchError"])(this.handleError('searchHeroes', [])), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(res => res.data.results));
+            this.log(`no heroes matching "${term}"`)), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(res => res.data.results), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["catchError"])(this.handleError('searchHeroes', [])));
     }
 };
 HeroService.ctorParameters = () => [
@@ -938,12 +952,11 @@ __webpack_require__.r(__webpack_exports__);
 
 // import { MessageService } from '../message.service';
 let HeroesComponent = class HeroesComponent {
-    // selectedHero: Hero;
     constructor(heroService /*, private messageService: MessageService*/) {
         this.heroService = heroService;
     }
     ngOnInit() {
-        if (!this.heroes || !this.heroes.length) {
+        if (!this.heroService.heroes || !this.heroService.heroes.length) {
             this.getHeroes();
         }
     }
@@ -952,7 +965,7 @@ let HeroesComponent = class HeroesComponent {
     //   this.messageService.add(`HeroService: Selected hero id=${hero.id}, name=${hero.name}`);
     // }
     getHeroes() {
-        this.heroService.getHeroes().subscribe(heroes => this.heroes = heroes);
+        this.heroService.getHeroes().subscribe(heroes => this.heroService.heroes = heroes);
     }
     add(name) {
         name = name.trim();
@@ -960,14 +973,15 @@ let HeroesComponent = class HeroesComponent {
             return;
         }
         // tslint:disable-next-line: max-line-length
-        this.heroes.push({ name, id: this.heroes[this.heroes.length - 1].id + 1, series: {}, thumbnail: { path: 'https://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/standard_xlarge.jpg', extension: 'jpg' } });
+        this.heroService.heroes.push({ name, id: this.heroService.newlyAddedId, series: {}, thumbnail: { path: 'https://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/', extension: 'jpg' } });
+        this.heroService.newlyAddedId++;
         // this.heroService.addHero({ name } as Hero)
         //   .subscribe(hero => {
         //     this.heroes.push(hero);
         //   });
     }
     delete(hero) {
-        this.heroes = this.heroes.filter(h => h !== hero);
+        this.heroService.heroes = this.heroService.heroes.filter(h => h !== hero);
         // this.heroService.deleteHero(hero).subscribe();
     }
     getImage(hero) {
