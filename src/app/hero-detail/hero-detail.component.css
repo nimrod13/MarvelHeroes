@@ -1,0 +1,102 @@
+/* HeroDetailComponent's private CSS styles */
+label {
+  display: inline-block;
+  margin: .5em 0;
+  color: #607D8B;
+  font-weight: bold;
+}
+
+input {
+  height: 2em;
+  font-size: 1em;
+  padding-left: .4em;
+  margin-top: 5px;
+}
+
+button {
+  margin-top: 10px;
+  background-color: #eee;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  cursor: hand;
+}
+
+button:hover {
+  background-color: #cfd8dc;
+}
+
+button:disabled {
+  background-color: #eee;
+  color: #ccc;
+  cursor: auto;
+}
+
+.dt-button+.dt-button {
+  margin-left: 8px;
+}
+
+img {
+  float: right;
+}
+
+.details {
+  width: 500px;
+  display: inline-block;
+}
+
+.info_container {
+  display: grid;
+}
+
+.details .info {
+  -ms-grid-column: 1;
+  grid-column: 1;
+  border-top: 1px solid #e1e1e1;
+  border-left: 1px solid #e1e1e1;
+  border-right: 1px solid #e1e1e1;
+  border-bottom: 1px solid #e1e1e1;
+}
+
+.series {
+  border-bottom: 1px solid #e1e1e1;
+  border-left: 1px solid #e1e1e1;
+  border-right: 1px solid #e1e1e1;
+}
+
+.info .id_box {
+  margin: 0 0 20px;
+}
+
+.hero_id_label {
+  font-family: Roboto, Trebuchet MS, Helvetica, Arial, sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  line-height: 20px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin: 0;
+  padding: 0;
+}
+
+.hero_id {
+  color: #151515;
+  font-size: 16px;
+  word-break: break-word;
+  font-family: Roboto, Trebuchet MS, Helvetica, Arial, sans-serif;
+  font-weight: 700;
+}
+
+p {
+  margin: 0;
+  padding: 0;
+}
+
+.info_text_container {
+  padding-left: 2em;
+  padding-top: 2em;
+}
+
+.series_text_container {
+  padding: 2em;
+}
