@@ -10,13 +10,10 @@ import { HeroService } from '../hero.service';
 })
 
 export class HeroesComponent implements OnInit {
-  heroes: Hero[];
-  // selectedHero: Hero;
-
-  constructor(private heroService: HeroService/*, private messageService: MessageService*/) { }
+  constructor(public heroService: HeroService/*, private messageService: MessageService*/) { }
 
   ngOnInit() {
-    if (!this.heroes || !this.heroes.length) {
+    if (!this.heroService.heroes || !this.heroService.heroes.length) {
       this.getHeroes();
     }
   }
@@ -27,14 +24,14 @@ export class HeroesComponent implements OnInit {
   // }
 
   getHeroes(): void {
-    this.heroService.getHeroes().subscribe(heroes => this.heroes = heroes);
+    this.heroService.getHeroes().subscribe(heroes => this.heroService.heroes = heroes);
   }
 
   add(name: string): void {
     name = name.trim();
     if (!name) { return; }
     // tslint:disable-next-line: max-line-length
-    this.heroes.push({ name, id: this.heroService.newlyAddedId, series: {}, thumbnail: { path: 'https://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/standard_xlarge.jpg', extension: 'jpg' } });
+    this.heroService.heroes.push({ name, id: this.heroService.newlyAddedId, series: {}, thumbnail: { path: 'https://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/', extension: 'jpg' } });
     this.heroService.newlyAddedId++;
     // this.heroService.addHero({ name } as Hero)
     //   .subscribe(hero => {
@@ -43,7 +40,7 @@ export class HeroesComponent implements OnInit {
   }
 
   delete(hero: Hero): void {
-    this.heroes = this.heroes.filter(h => h !== hero);
+    this.heroService.heroes = this.heroService.heroes.filter(h => h !== hero);
     // this.heroService.deleteHero(hero).subscribe();
   }
 

@@ -56,19 +56,22 @@ export class HeroService {
         this.log(`no heroes matching id "${id}" could be found`),
       ),
       map(res => res ? res.data.results[0] : null),
-      catchError(this.tryGetHeroLocally(id))
+      catchError(this.handleError<Hero>(`getHero from API with id=${id}`))
     );
   }
 
-  tryGetHeroLocally(id: number): any{
+  tryGetHeroLocally(id: number): Hero {
     if (!this.heroes || !this.heroes.length) {
-      // tslint:disable-next-line: max-line-length
-      return this.getHeroes().subscribe(heroes => { this.heroes = heroes; this.heroes && this.heroes.length ? this.heroes.find(h => h.id === id) : null; });
+      this.getHeroes().subscribe(heroes => { this.heroes = heroes; return this.findHeroById(id); });
+      return;
     }
 
-    return this.handleError<Hero>(`getHero id=${id}`);
+    return this.findHeroById(id);
   }
 
+  private findHeroById(id: number): Hero {
+    return this.heroes.find(h => h.id === id);
+  }
   /** Log a HeroService message with the MessageService */
   private log(message: string) {
     this.messageService.add(`HeroService: ${message}`);
