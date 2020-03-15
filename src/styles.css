@@ -13,7 +13,12 @@ h3 {
 }
 
 body {
-  margin: 2em;
+  background-color: #fdfdfd;
+  margin: 0 auto;
+  position: relative;
+  max-width: 1050px;
+  font-size: 16px;
+  line-height: 1.5;
 }
 
 body,
@@ -21,11 +26,4 @@ input[type="text"],
 button {
   color: #333;
   font-family: Cambria, Georgia;
-}
-
-html {
-  background-color: #fdfdfd;
-  margin: 0 auto;
-  position: relative;
-  max-width: 1050px;
 }
