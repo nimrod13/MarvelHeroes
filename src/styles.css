@@ -22,3 +22,10 @@ button {
   color: #333;
   font-family: Cambria, Georgia;
 }
+
+html {
+  background-color: #fdfdfd;
+  margin: 0 auto;
+  position: relative;
+  max-width: 1050px;
+}
