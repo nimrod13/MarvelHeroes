@@ -41,8 +41,4 @@ export class HeroesComponent implements OnInit {
     heroesLocal = heroesLocal.filter((h: Hero) => h !== hero);
     this.heroService.addHeroesToLocalStorage(heroesLocal);
   }
-
-  getImage(hero: Hero) {
-    return `${hero.thumbnail.path}/standard_xlarge.jpg`;
-  }
 }

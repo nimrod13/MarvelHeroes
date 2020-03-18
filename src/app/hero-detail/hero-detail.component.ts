@@ -46,7 +46,7 @@ export class HeroDetailComponent implements OnInit {
   }
 
   getImageSrc() {
-    return `${this.hero.thumbnail.path}/landscape_xlarge.jpg`;
+    return '';
   }
 
   getImageSrcSet() {
