@@ -1,29 +1,31 @@
 <div *ngIf="hero" class="details">
   <h2>{{hero.name | uppercase}}</h2>
 
-  <div class="info_container">
-    <div class="info">
-      <img src="{{getImage()}}" alt="{{hero.name}}" />
-      <div class="info_text_container">
-        <div class="id_box">
-          <label class="hero_label">ID</label>
-          <p class="hero_id">{{hero.id}}</p>
-        </div>
-        <div>
-          <label>Name:</label>
-          <em dt-inline-editor [(ngModel)]="hero.name" ariaLabelSave="Save name"
-            ariaLabelCancel="Cancel and discard changes"></em>
+  <div class="details_container">
+    <div class="info_container">
+      <div class="info">
+        <img src="{{getImage()}}" alt="{{hero.name}}" />
+        <div class="info_text_container">
+          <div class="id_box">
+            <label class="hero_label">ID</label>
+            <p class="hero_id">{{hero.id}}</p>
+          </div>
+          <div>
+            <label>Name:</label>
+            <em dt-inline-editor [(ngModel)]="hero.name" ariaLabelSave="Save name"
+              ariaLabelCancel="Cancel and discard changes"></em>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <div class="info_container" *ngIf="getSeriesItems(hero)">
-    <div class="series">
-      <div class="series_text_container">
-        <div>
-          <label>Series</label>
-          <p class="hero_serie" *ngFor="let serie of getSeriesItems(hero)">{{serie.name}}</p>
+    <div class="info_container" *ngIf="getSeriesItems(hero)">
+      <div class="series">
+        <div class="series_text_container">
+          <div>
+            <label>Series</label>
+            <p class="hero_serie" *ngFor="let serie of getSeriesItems(hero)">{{serie.name}}</p>
+          </div>
         </div>
       </div>
     </div>

@@ -45,6 +45,10 @@ img {
   display: inline-block;
 }
 
+.details_container {
+  box-shadow: 0 0 10px rgba(14, 30, 37, .12);
+}
+
 .info_container {
   display: grid;
   background-color: white;
