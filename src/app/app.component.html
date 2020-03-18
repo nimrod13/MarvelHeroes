@@ -1,12 +1,14 @@
 <header>
   <h1>{{title | uppercase}}</h1>
 </header>
-<nav>
-  <dt-button-group>
-    <dt-button-group-item dt-button routerLink="/dashboard">Dashboard</dt-button-group-item>
-    <dt-button-group-item dt-button routerLink="/heroes">Heroes</dt-button-group-item>
-  </dt-button-group>
-</nav>
-<router-outlet></router-outlet>
-<app-messages></app-messages>
-<app-attribution></app-attribution>
+<div class="container">
+  <nav>
+    <dt-button-group>
+      <dt-button-group-item dt-button routerLink="/dashboard">Dashboard</dt-button-group-item>
+      <dt-button-group-item dt-button routerLink="/heroes">Heroes</dt-button-group-item>
+    </dt-button-group>
+  </nav>
+  <router-outlet></router-outlet>
+  <app-messages></app-messages>
+  <app-attribution></app-attribution>
+</div>

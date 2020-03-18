@@ -11,7 +11,10 @@ h2 {
   padding-top: 0;
 }
 
-
+.container {
+  max-width: 700px;
+  margin: auto;
+}
 
 header {
   /* background-color: #00848e; */
