@@ -21,6 +21,7 @@ import { DtInlineEditorModule } from '@dynatrace/barista-components/inline-edito
 import { AttributionComponent } from './attribution/attribution.component';
 import { LoadingComponent } from './dashboard/loading/loading.component';
 import { DtPaginationModule } from '@dynatrace/barista-components/pagination';
+import { FallbackimgDirective } from './fallbackimg.directive';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { DtPaginationModule } from '@dynatrace/barista-components/pagination';
     DashboardComponent,
     HeroSearchComponent,
     AttributionComponent,
-    LoadingComponent
+    LoadingComponent,
+    FallbackimgDirective
   ],
   imports: [
     BrowserModule,

@@ -4,7 +4,7 @@
   <div class="details_container">
     <div class="info_container">
       <div class="info">
-        <img src="{{getImageSrc()}}" srcset="{{getImageSrcSet()}}" alt="{{hero.name}}" height="200px" (error)="setFallbackImg($event)">
+        <img src="{{getImageSrc()}}" srcset="{{getImageSrcSet()}}" alt="{{hero.name}}" height="200px" appFallbackimg>
         <div class="info_text_container">
           <div class="id_box">
             <label class="hero_label">ID</label>
