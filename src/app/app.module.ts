@@ -20,6 +20,7 @@ import { DtCardModule } from '@dynatrace/barista-components/card';
 import { DtInlineEditorModule } from '@dynatrace/barista-components/inline-editor';
 import { AttributionComponent } from './attribution/attribution.component';
 import { LoadingComponent } from './dashboard/loading/loading.component';
+import { DtPaginationModule } from '@dynatrace/barista-components/pagination';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { LoadingComponent } from './dashboard/loading/loading.component';
     DtButtonGroupModule,
     DtCardModule,
     DtInlineEditorModule,
-    DtLoadingDistractorModule
+    DtLoadingDistractorModule,
+    DtPaginationModule
   ],
   providers: [],
   bootstrap: [AppComponent]

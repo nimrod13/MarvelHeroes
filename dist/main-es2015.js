@@ -167,9 +167,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _dynatrace_barista_components_inline_editor__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @dynatrace/barista-components/inline-editor */ "./node_modules/@dynatrace/barista-components/__ivy_ngcc__/fesm2015/dynatrace-barista-components-inline-editor.js");
 /* harmony import */ var _attribution_attribution_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./attribution/attribution.component */ "./src/app/attribution/attribution.component.ts");
 /* harmony import */ var _dashboard_loading_loading_component__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./dashboard/loading/loading.component */ "./src/app/dashboard/loading/loading.component.ts");
+/* harmony import */ var _dynatrace_barista_components_pagination__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @dynatrace/barista-components/pagination */ "./node_modules/@dynatrace/barista-components/__ivy_ngcc__/fesm2015/dynatrace-barista-components-pagination.js");
 
 
  // <-- NgModel lives here
+
 
 
 
@@ -208,7 +210,8 @@ AppModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineInjector
             _dynatrace_barista_components_button_group__WEBPACK_IMPORTED_MODULE_17__["DtButtonGroupModule"],
             _dynatrace_barista_components_card__WEBPACK_IMPORTED_MODULE_18__["DtCardModule"],
             _dynatrace_barista_components_inline_editor__WEBPACK_IMPORTED_MODULE_19__["DtInlineEditorModule"],
-            _dynatrace_barista_components_loading_distractor__WEBPACK_IMPORTED_MODULE_16__["DtLoadingDistractorModule"]
+            _dynatrace_barista_components_loading_distractor__WEBPACK_IMPORTED_MODULE_16__["DtLoadingDistractorModule"],
+            _dynatrace_barista_components_pagination__WEBPACK_IMPORTED_MODULE_22__["DtPaginationModule"]
         ]] });
 (function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵsetNgModuleScope"](AppModule, { declarations: [_app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"],
         _heroes_heroes_component__WEBPACK_IMPORTED_MODULE_6__["HeroesComponent"],
@@ -228,7 +231,8 @@ AppModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineInjector
         _dynatrace_barista_components_button_group__WEBPACK_IMPORTED_MODULE_17__["DtButtonGroupModule"],
         _dynatrace_barista_components_card__WEBPACK_IMPORTED_MODULE_18__["DtCardModule"],
         _dynatrace_barista_components_inline_editor__WEBPACK_IMPORTED_MODULE_19__["DtInlineEditorModule"],
-        _dynatrace_barista_components_loading_distractor__WEBPACK_IMPORTED_MODULE_16__["DtLoadingDistractorModule"]] }); })();
+        _dynatrace_barista_components_loading_distractor__WEBPACK_IMPORTED_MODULE_16__["DtLoadingDistractorModule"],
+        _dynatrace_barista_components_pagination__WEBPACK_IMPORTED_MODULE_22__["DtPaginationModule"]] }); })();
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵsetClassMetadata"](AppModule, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"],
         args: [{
@@ -256,7 +260,8 @@ AppModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineInjector
                     _dynatrace_barista_components_button_group__WEBPACK_IMPORTED_MODULE_17__["DtButtonGroupModule"],
                     _dynatrace_barista_components_card__WEBPACK_IMPORTED_MODULE_18__["DtCardModule"],
                     _dynatrace_barista_components_inline_editor__WEBPACK_IMPORTED_MODULE_19__["DtInlineEditorModule"],
-                    _dynatrace_barista_components_loading_distractor__WEBPACK_IMPORTED_MODULE_16__["DtLoadingDistractorModule"]
+                    _dynatrace_barista_components_loading_distractor__WEBPACK_IMPORTED_MODULE_16__["DtLoadingDistractorModule"],
+                    _dynatrace_barista_components_pagination__WEBPACK_IMPORTED_MODULE_22__["DtPaginationModule"]
                 ],
                 providers: [],
                 bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"]]
