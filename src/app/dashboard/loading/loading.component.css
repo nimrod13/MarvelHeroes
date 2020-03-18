@@ -1,0 +1,11 @@
+.dt-loading-spinner-svg {
+  stroke: #c7bb63 !important;
+}
+
+dt-loading-spinner {
+  display: block !important;
+  margin: auto;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+}

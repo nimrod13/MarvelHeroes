@@ -1,15 +1,11 @@
-<div class="dt-demo-card">
+<div class="dt-demo-card" *ngIf="messageService.messages.length">
   <dt-card>
-    <div *ngIf="messageService.messages.length">
-      <dt-card-title> Messages </dt-card-title>
-      <button dt-button variant="secondary" class="clear" (click)="messageService.clear()">
-        <dt-icon name="delete"></dt-icon>Clear
-      </button>
-      <div class="messages" *ngFor='let message of messageService.messages'>
-        <span class="message">{{message}}</span>
-      </div>
+    <dt-card-title> Messages </dt-card-title>
+    <button dt-button variant="secondary" class="clear" (click)="messageService.clear()">
+      <dt-icon name="delete"></dt-icon>Clear
+    </button>
+    <div class="messages" *ngFor='let message of messageService.messages'>
+      <span class="message">{{message}}</span>
     </div>
   </dt-card>
-
-  <app-attribution></app-attribution>
 </div>

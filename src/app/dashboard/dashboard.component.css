@@ -43,17 +43,25 @@ h4 {
   color: #eee;
   min-height: 120px;
   min-width: 120px;
-  background-color: #00848e;
+  /* background-color: #00848e; */
   border-radius: 2px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.module:hover {
-  background-color: #dfe7e7;
+.module.hero:hover {
+  /* background-color: #dfe7e7; */
+  background-color: #022629;
   cursor: pointer;
-  color: #00848e;
+  /* color: #00848e; */
+}
+
+.module.hero {
+  color: white;
+  border-radius: 3px;
+  box-shadow: 2px 3px 2px 0 rgba(9, 130, 154, 0.2);
+  background: linear-gradient(rgba(0, 132, 142), rgba(0, 132, 142, 0.69));
 }
 
 .grid-pad {
@@ -91,10 +99,3 @@ h4 {
     min-width: 60px;
   }
 }
-
-
-/*
-Copyright Google LLC. All Rights Reserved.
-Use of this source code is governed by an MIT-style license that
-can be found in the LICENSE file at http://angular.io/license
-*/

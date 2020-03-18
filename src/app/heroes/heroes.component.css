@@ -94,3 +94,13 @@ button.delete:hover {
   display: inline-block;
   margin-right: 10px;
 }
+
+.dt-card {
+  border-top: 3px solid #c7bb63;
+  padding-top: 16px;
+  border-radius: 8px;
+  -webkit-box-shadow: 0 2px 4px 0 rgba(14, 30, 37, .12);
+  box-shadow: 0 2px 4px 0 rgba(14, 30, 37, .12);
+  padding: 20px;
+  border-bottom: 1px solid rgba(14, 30, 37, .12);
+}

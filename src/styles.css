@@ -27,3 +27,11 @@ button {
   color: #333;
   font-family: Cambria, Georgia;
 }
+
+body {
+  background: transparent;
+}
+
+html {
+  background-color: rgba(154, 170, 174, 0.06);
+}

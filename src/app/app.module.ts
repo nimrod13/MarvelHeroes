@@ -19,6 +19,7 @@ import { DtButtonGroupModule } from '@dynatrace/barista-components/button-group'
 import { DtCardModule } from '@dynatrace/barista-components/card';
 import { DtInlineEditorModule } from '@dynatrace/barista-components/inline-editor';
 import { AttributionComponent } from './attribution/attribution.component';
+import { LoadingComponent } from './dashboard/loading/loading.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { AttributionComponent } from './attribution/attribution.component';
     MessagesComponent,
     DashboardComponent,
     HeroSearchComponent,
-    AttributionComponent
+    AttributionComponent,
+    LoadingComponent
   ],
   imports: [
     BrowserModule,

@@ -1,26 +1,25 @@
-<h2>Heroes</h2>
-
-<div class="inline">
-  <input type="text" dtInput placeholder="Please add hero name" #heroName />
-  <!-- (click) passes input value to add() and then clears the input -->
-  <button dt-button (click)="add(heroName.value); heroName.value=''">
-    <dt-icon name="plus-add"></dt-icon>
-    Add
-  </button>
-</div>
-
-<ul class="heroes" *ngIf="heroService.heroes">
-  <li *ngFor="let hero of heroService.heroes">
-    <a routerLink="/detail/{{hero.id}}">
-      <span class="badge">{{hero.id}}</span>
-      <span class="name">{{hero.name}}</span>
-    </a>
-    <button class="delete" title="delete hero" (click)="delete(hero)">
-      <!-- <dt-icon name="abort"></dt-icon> -->
-      x
+<dt-card>
+  <dt-card-title>Heroes</dt-card-title>
+  <div class="inline">
+    <input type="text" dtInput placeholder="Please add hero name" #heroName />
+    <!-- (click) passes input value to add() and then clears the input -->
+    <button dt-button (click)="add(heroName.value); heroName.value=''">
+      <dt-icon name="plus-add"></dt-icon>
+      Add
     </button>
-  </li>
+  </div>
 
-</ul>
+  <ul class="heroes" *ngIf="heroService.heroes">
+    <li *ngFor="let hero of heroService.heroes">
+      <a routerLink="/detail/{{hero.id}}">
+        <span class="badge">{{hero.id}}</span>
+        <span class="name">{{hero.name}}</span>
+      </a>
+      <button class="delete" title="delete hero" (click)="delete(hero)">
+        <!-- <dt-icon name="abort"></dt-icon> -->
+        x
+      </button>
+    </li>
 
-<app-attribution></app-attribution>
+  </ul>
+</dt-card>

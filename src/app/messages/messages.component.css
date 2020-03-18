@@ -40,3 +40,14 @@ button.clear {
   color: #333;
   margin: 12px 0;
 }
+
+.dt-card {
+  border-top: 4px solid #00848e;
+  padding-top: 16px;
+  border-radius: 8px;
+  -webkit-box-shadow: 0 2px 4px 0 rgba(14, 30, 37, .12);
+  box-shadow: 0 2px 4px 0 rgba(14, 30, 37, .12);
+  margin-top: 20px;
+  padding: 20px;
+  border-bottom: 1px solid rgba(14, 30, 37, .12);
+}
