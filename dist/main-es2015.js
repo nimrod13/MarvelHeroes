@@ -365,12 +365,14 @@ class DashboardComponent {
         this.heroes = [];
     }
     ngOnInit() {
-        if (!this.heroes || !this.heroes.length) {
-            this.getHeroes();
-        }
+        this.getHeroes();
     }
     getHeroes() {
-        this.heroService.getHeroes().subscribe(heroes => this.heroes = this.getRandomHeroes(heroes));
+        this.heroService.getHeroes().subscribe(heroes => {
+            this.heroes = this.getRandomHeroes(heroes);
+            // tslint:disable-next-line: no-unused-expression
+            !this.heroService.tryGetHeroesFromLocalStorage() && this.heroService.addHeroesToLocalStorage(heroes);
+        });
     }
     getRandomHeroes(heroes) {
         return heroes.sort(() => 0.5 - Math.random()).slice(0, 4);
@@ -733,6 +735,14 @@ class HeroService {
             headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]({ 'Content-Type': 'application/json' })
         };
     }
+    addHeroesToLocalStorage(heroes) {
+        // tslint:disable-next-line: no-unused-expression
+        heroes && localStorage.setItem('testHeroes', JSON.stringify(heroes));
+    }
+    tryGetHeroesFromLocalStorage() {
+        const heroes = localStorage.getItem('testHeroes');
+        return heroes && heroes.length ? JSON.parse(heroes) : null;
+    }
     // getHeroes(): Observable<Hero[]> {
     //   this.messageService.add('HeroService fetched heroes');
     //   return of(HEROES);
@@ -751,14 +761,15 @@ class HeroService {
             this.log(`no heroes matching id "${id}" could be found`)), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(res => res ? res.data.results[0] : null), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.handleError(`getHero from API with id=${id}`)));
     }
     tryGetHeroLocally(id) {
-        if (!this.heroes || !this.heroes.length) {
-            this.getHeroes().subscribe(heroes => { this.heroes = heroes; return this.findHeroById(id); });
+        const heroesLocal = this.tryGetHeroesFromLocalStorage();
+        if (!heroesLocal) {
+            this.getHeroes().subscribe(heroes => { this.heroes = heroes; this.addHeroesToLocalStorage(heroes); return this.findHeroById(id, heroes); });
             return;
         }
-        return this.findHeroById(id);
+        return this.findHeroById(id, heroesLocal);
     }
-    findHeroById(id) {
-        return this.heroes.find(h => h.id === id);
+    findHeroById(id, heroes) {
+        return heroes.find(h => h.id === id);
     }
     /** Log a HeroService message with the MessageService */
     log(message) {
@@ -785,14 +796,16 @@ class HeroService {
         return this.http.put(this.heroesUrl, hero, this.httpOptions).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["tap"])(_ => this.log(`updated hero id=${hero.id}`)), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.handleError('updateHero')));
     }
     updateLocalHero(hero) {
-        if (!this.heroes || !this.heroes.length) {
-            this.getHeroes().subscribe(heroes => { this.heroes = heroes; this.updateHeroName(hero); });
+        const heroesLocal = this.tryGetHeroesFromLocalStorage();
+        if (!heroesLocal) {
+            this.getHeroes().subscribe(heroes => { this.heroes = heroes; this.addHeroesToLocalStorage(heroesLocal); this.updateHeroName(hero, heroes); });
             return;
         }
-        this.updateHeroName(hero);
+        this.updateHeroName(hero, heroesLocal);
     }
-    updateHeroName(hero) {
-        this.heroes.find(h => h.id === hero.id).name = hero.name; // only first found item is changed;
+    updateHeroName(hero, heroes) {
+        heroes.find(h => h.id === hero.id).name = hero.name; // only first found item is changed;
+        this.addHeroesToLocalStorage(heroes);
         // this.heroes.forEach((element, index) => {  //to change all names
         //   if (element.name === hero.name) {
         //     this.heroes[index].name = hero.name;
@@ -892,7 +905,7 @@ function HeroesComponent_ul_9_Template(rf, ctx) { if (rf & 1) {
 } if (rf & 2) {
     const ctx_r1 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngForOf", ctx_r1.heroService.heroes);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngForOf", ctx_r1.heroService.tryGetHeroesFromLocalStorage());
 } }
 // import { MessageService } from '../message.service';
 class HeroesComponent {
@@ -900,7 +913,7 @@ class HeroesComponent {
         this.heroService = heroService;
     }
     ngOnInit() {
-        if (!this.heroService.heroes || !this.heroService.heroes.length) {
+        if (!this.heroService.tryGetHeroesFromLocalStorage()) {
             this.getHeroes();
         }
     }
@@ -909,24 +922,22 @@ class HeroesComponent {
     //   this.messageService.add(`HeroService: Selected hero id=${hero.id}, name=${hero.name}`);
     // }
     getHeroes() {
-        this.heroService.getHeroes().subscribe(heroes => this.heroService.heroes = heroes);
+        this.heroService.getHeroes().subscribe(heroes => this.heroService.addHeroesToLocalStorage(heroes));
     }
     add(name) {
         name = name.trim();
         if (!name) {
             return;
         }
-        // tslint:disable-next-line: max-line-length
-        this.heroService.heroes.push({ name, id: this.heroService.newlyAddedId, series: {}, thumbnail: { path: 'https://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/', extension: 'jpg' } });
+        let heroesLocal = this.heroService.tryGetHeroesFromLocalStorage();
+        heroesLocal && heroesLocal.push({ name, id: this.heroService.newlyAddedId, series: {}, thumbnail: { path: 'https://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/', extension: 'jpg' } });
         this.heroService.newlyAddedId++;
-        // this.heroService.addHero({ name } as Hero)
-        //   .subscribe(hero => {
-        //     this.heroes.push(hero);
-        //   });
+        this.heroService.addHeroesToLocalStorage(heroesLocal);
     }
     delete(hero) {
-        this.heroService.heroes = this.heroService.heroes.filter(h => h !== hero);
-        // this.heroService.deleteHero(hero).subscribe();
+        let heroesLocal = this.heroService.tryGetHeroesFromLocalStorage();
+        heroesLocal = heroesLocal.filter((h) => h !== hero);
+        this.heroService.addHeroesToLocalStorage(heroesLocal);
     }
     getImage(hero) {
         return `${hero.thumbnail.path}/standard_xlarge.jpg`;
@@ -951,7 +962,7 @@ HeroesComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineCo
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
     } if (rf & 2) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](9);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx.heroService.heroes);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx.heroService.tryGetHeroesFromLocalStorage());
     } }, directives: [_dynatrace_barista_components_card__WEBPACK_IMPORTED_MODULE_2__["DtCard"], _dynatrace_barista_components_card__WEBPACK_IMPORTED_MODULE_2__["DtCardTitle"], _dynatrace_barista_components_input__WEBPACK_IMPORTED_MODULE_3__["DtInput"], _dynatrace_barista_components_button__WEBPACK_IMPORTED_MODULE_4__["DtButton"], _dynatrace_barista_components_icon__WEBPACK_IMPORTED_MODULE_5__["DtIcon"], _angular_common__WEBPACK_IMPORTED_MODULE_6__["NgIf"], _angular_common__WEBPACK_IMPORTED_MODULE_6__["NgForOf"], _angular_router__WEBPACK_IMPORTED_MODULE_7__["RouterLinkWithHref"]], styles: [".heroes[_ngcontent-%COMP%] {\r\n  margin: 0 0 2em 0;\r\n  list-style-type: none;\r\n  padding: 0;\r\n  width: 75%;\r\n}\r\n.heroes[_ngcontent-%COMP%]   li[_ngcontent-%COMP%] {\r\n  position: relative;\r\n  cursor: pointer;\r\n  background-color: #EEE;\r\n  margin: .5em;\r\n  padding: .3em 0;\r\n  height: 1.6em;\r\n  border-radius: 4px;\r\n}\r\n.heroes[_ngcontent-%COMP%]   li[_ngcontent-%COMP%]:hover {\r\n  color: #607D8B;\r\n  background-color: #DDD;\r\n  left: .1em;\r\n}\r\n.heroes[_ngcontent-%COMP%]   a[_ngcontent-%COMP%] {\r\n  color: #333;\r\n  text-decoration: none;\r\n  position: relative;\r\n  display: block;\r\n}\r\n.heroes[_ngcontent-%COMP%]   a[_ngcontent-%COMP%]:hover {\r\n  color: #00a1b2;\r\n}\r\n.heroes[_ngcontent-%COMP%]   .badge[_ngcontent-%COMP%] {\r\n  display: inline-block;\r\n  font-size: small;\r\n  color: white;\r\n  padding: 0.8em 0.7em 0 0.7em;\r\n  background-color: #00a1b2;\r\n  line-height: 1em;\r\n  position: relative;\r\n  left: -1px;\r\n  top: -4px;\r\n  height: 1.6em;\r\n  min-width: 16px;\r\n  text-align: right;\r\n  margin-right: .8em;\r\n  border-radius: 4px 0 0 4px;\r\n}\r\n.heroes[_ngcontent-%COMP%]   .badge[_ngcontent-%COMP%]:hover {\r\n  background-color: #2d8b95;\r\n}\r\n.heroes[_ngcontent-%COMP%]   span.name[_ngcontent-%COMP%] {\r\n  display: inline-block;\r\n  vertical-align: text-bottom;\r\n}\r\nbutton[_ngcontent-%COMP%] {\r\n  background-color: #eee;\r\n  border: none;\r\n  border-radius: 4px;\r\n  cursor: pointer;\r\n  cursor: hand;\r\n}\r\nbutton[_ngcontent-%COMP%]:hover {\r\n  background-color: #cfd8dc;\r\n}\r\nbutton.delete[_ngcontent-%COMP%] {\r\n  position: relative;\r\n  left: calc(100% - 28px);\r\n  top: -33px;\r\n  background-color: gray;\r\n  color: white;\r\n  padding: 5px 10px;\r\n}\r\nbutton.delete[_ngcontent-%COMP%]:hover {\r\n  background-color: #9c5061;\r\n}\r\n.inline[_ngcontent-%COMP%] {\r\n  width: 100%;\r\n  display: inline-block;\r\n}\r\n.inline[_ngcontent-%COMP%]   input[_ngcontent-%COMP%] {\r\n  width: 75%;\r\n  display: inline-block;\r\n  margin-right: 10px;\r\n}\r\n.dt-card[_ngcontent-%COMP%] {\r\n  border-top: 3px solid #c7bb63;\r\n  padding-top: 16px;\r\n  border-radius: 8px;\r\n  box-shadow: 0 2px 4px 0 rgba(14, 30, 37, .12);\r\n  padding: 20px;\r\n  border-bottom: 1px solid rgba(14, 30, 37, .12);\r\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvaGVyb2VzL2hlcm9lcy5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBLHlDQUF5QztBQUN6QztFQUNFLGlCQUFpQjtFQUNqQixxQkFBcUI7RUFDckIsVUFBVTtFQUNWLFVBQVU7QUFDWjtBQUVBO0VBQ0Usa0JBQWtCO0VBQ2xCLGVBQWU7RUFDZixzQkFBc0I7RUFDdEIsWUFBWTtFQUNaLGVBQWU7RUFDZixhQUFhO0VBQ2Isa0JBQWtCO0FBQ3BCO0FBRUE7RUFDRSxjQUFjO0VBQ2Qsc0JBQXNCO0VBQ3RCLFVBQVU7QUFDWjtBQUVBO0VBQ0UsV0FBVztFQUNYLHFCQUFxQjtFQUNyQixrQkFBa0I7RUFDbEIsY0FBYztBQUNoQjtBQUVBO0VBQ0UsY0FBYztBQUNoQjtBQUVBO0VBQ0UscUJBQXFCO0VBQ3JCLGdCQUFnQjtFQUNoQixZQUFZO0VBQ1osNEJBQTRCO0VBQzVCLHlCQUF5QjtFQUN6QixnQkFBZ0I7RUFDaEIsa0JBQWtCO0VBQ2xCLFVBQVU7RUFDVixTQUFTO0VBQ1QsYUFBYTtFQUNiLGVBQWU7RUFDZixpQkFBaUI7RUFDakIsa0JBQWtCO0VBQ2xCLDBCQUEwQjtBQUM1QjtBQUVBO0VBQ0UseUJBQXlCO0FBQzNCO0FBRUE7RUFDRSxxQkFBcUI7RUFDckIsMkJBQTJCO0FBQzdCO0FBRUE7RUFDRSxzQkFBc0I7RUFDdEIsWUFBWTtFQUNaLGtCQUFrQjtFQUNsQixlQUFlO0VBQ2YsWUFBWTtBQUNkO0FBRUE7RUFDRSx5QkFBeUI7QUFDM0I7QUFFQTtFQUNFLGtCQUFrQjtFQUNsQix1QkFBdUI7RUFDdkIsVUFBVTtFQUNWLHNCQUFzQjtFQUN0QixZQUFZO0VBQ1osaUJBQWlCO0FBQ25CO0FBRUE7RUFDRSx5QkFBeUI7QUFDM0I7QUFFQTtFQUNFLFdBQVc7RUFDWCxxQkFBcUI7QUFDdkI7QUFFQTtFQUNFLFVBQVU7RUFDVixxQkFBcUI7RUFDckIsa0JBQWtCO0FBQ3BCO0FBRUE7RUFDRSw2QkFBNkI7RUFDN0IsaUJBQWlCO0VBQ2pCLGtCQUFrQjtFQUVsQiw2Q0FBNkM7RUFDN0MsYUFBYTtFQUNiLDhDQUE4QztBQUNoRCIsImZpbGUiOiJzcmMvYXBwL2hlcm9lcy9oZXJvZXMuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi8qIEhlcm9lc0NvbXBvbmVudCdzIHByaXZhdGUgQ1NTIHN0eWxlcyAqL1xyXG4uaGVyb2VzIHtcclxuICBtYXJnaW46IDAgMCAyZW0gMDtcclxuICBsaXN0LXN0eWxlLXR5cGU6IG5vbmU7XHJcbiAgcGFkZGluZzogMDtcclxuICB3aWR0aDogNzUlO1xyXG59XHJcblxyXG4uaGVyb2VzIGxpIHtcclxuICBwb3NpdGlvbjogcmVsYXRpdmU7XHJcbiAgY3Vyc29yOiBwb2ludGVyO1xyXG4gIGJhY2tncm91bmQtY29sb3I6ICNFRUU7XHJcbiAgbWFyZ2luOiAuNWVtO1xyXG4gIHBhZGRpbmc6IC4zZW0gMDtcclxuICBoZWlnaHQ6IDEuNmVtO1xyXG4gIGJvcmRlci1yYWRpdXM6IDRweDtcclxufVxyXG5cclxuLmhlcm9lcyBsaTpob3ZlciB7XHJcbiAgY29sb3I6ICM2MDdEOEI7XHJcbiAgYmFja2dyb3VuZC1jb2xvcjogI0RERDtcclxuICBsZWZ0OiAuMWVtO1xyXG59XHJcblxyXG4uaGVyb2VzIGEge1xyXG4gIGNvbG9yOiAjMzMzO1xyXG4gIHRleHQtZGVjb3JhdGlvbjogbm9uZTtcclxuICBwb3NpdGlvbjogcmVsYXRpdmU7XHJcbiAgZGlzcGxheTogYmxvY2s7XHJcbn1cclxuXHJcbi5oZXJvZXMgYTpob3ZlciB7XHJcbiAgY29sb3I6ICMwMGExYjI7XHJcbn1cclxuXHJcbi5oZXJvZXMgLmJhZGdlIHtcclxuICBkaXNwbGF5OiBpbmxpbmUtYmxvY2s7XHJcbiAgZm9udC1zaXplOiBzbWFsbDtcclxuICBjb2xvcjogd2hpdGU7XHJcbiAgcGFkZGluZzogMC44ZW0gMC43ZW0gMCAwLjdlbTtcclxuICBiYWNrZ3JvdW5kLWNvbG9yOiAjMDBhMWIyO1xyXG4gIGxpbmUtaGVpZ2h0OiAxZW07XHJcbiAgcG9zaXRpb246IHJlbGF0aXZlO1xyXG4gIGxlZnQ6IC0xcHg7XHJcbiAgdG9wOiAtNHB4O1xyXG4gIGhlaWdodDogMS42ZW07XHJcbiAgbWluLXdpZHRoOiAxNnB4O1xyXG4gIHRleHQtYWxpZ246IHJpZ2h0O1xyXG4gIG1hcmdpbi1yaWdodDogLjhlbTtcclxuICBib3JkZXItcmFkaXVzOiA0cHggMCAwIDRweDtcclxufVxyXG5cclxuLmhlcm9lcyAuYmFkZ2U6aG92ZXIge1xyXG4gIGJhY2tncm91bmQtY29sb3I6ICMyZDhiOTU7XHJcbn1cclxuXHJcbi5oZXJvZXMgc3Bhbi5uYW1lIHtcclxuICBkaXNwbGF5OiBpbmxpbmUtYmxvY2s7XHJcbiAgdmVydGljYWwtYWxpZ246IHRleHQtYm90dG9tO1xyXG59XHJcblxyXG5idXR0b24ge1xyXG4gIGJhY2tncm91bmQtY29sb3I6ICNlZWU7XHJcbiAgYm9yZGVyOiBub25lO1xyXG4gIGJvcmRlci1yYWRpdXM6IDRweDtcclxuICBjdXJzb3I6IHBvaW50ZXI7XHJcbiAgY3Vyc29yOiBoYW5kO1xyXG59XHJcblxyXG5idXR0b246aG92ZXIge1xyXG4gIGJhY2tncm91bmQtY29sb3I6ICNjZmQ4ZGM7XHJcbn1cclxuXHJcbmJ1dHRvbi5kZWxldGUge1xyXG4gIHBvc2l0aW9uOiByZWxhdGl2ZTtcclxuICBsZWZ0OiBjYWxjKDEwMCUgLSAyOHB4KTtcclxuICB0b3A6IC0zM3B4O1xyXG4gIGJhY2tncm91bmQtY29sb3I6IGdyYXk7XHJcbiAgY29sb3I6IHdoaXRlO1xyXG4gIHBhZGRpbmc6IDVweCAxMHB4O1xyXG59XHJcblxyXG5idXR0b24uZGVsZXRlOmhvdmVyIHtcclxuICBiYWNrZ3JvdW5kLWNvbG9yOiAjOWM1MDYxO1xyXG59XHJcblxyXG4uaW5saW5lIHtcclxuICB3aWR0aDogMTAwJTtcclxuICBkaXNwbGF5OiBpbmxpbmUtYmxvY2s7XHJcbn1cclxuXHJcbi5pbmxpbmUgaW5wdXQge1xyXG4gIHdpZHRoOiA3NSU7XHJcbiAgZGlzcGxheTogaW5saW5lLWJsb2NrO1xyXG4gIG1hcmdpbi1yaWdodDogMTBweDtcclxufVxyXG5cclxuLmR0LWNhcmQge1xyXG4gIGJvcmRlci10b3A6IDNweCBzb2xpZCAjYzdiYjYzO1xyXG4gIHBhZGRpbmctdG9wOiAxNnB4O1xyXG4gIGJvcmRlci1yYWRpdXM6IDhweDtcclxuICAtd2Via2l0LWJveC1zaGFkb3c6IDAgMnB4IDRweCAwIHJnYmEoMTQsIDMwLCAzNywgLjEyKTtcclxuICBib3gtc2hhZG93OiAwIDJweCA0cHggMCByZ2JhKDE0LCAzMCwgMzcsIC4xMik7XHJcbiAgcGFkZGluZzogMjBweDtcclxuICBib3JkZXItYm90dG9tOiAxcHggc29saWQgcmdiYSgxNCwgMzAsIDM3LCAuMTIpO1xyXG59XHJcbiJdfQ== */"] });
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](HeroesComponent, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"],

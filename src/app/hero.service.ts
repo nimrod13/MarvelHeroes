@@ -31,6 +31,16 @@ export class HeroService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
+  addHeroesToLocalStorage(heroes: Hero[]) {
+    // tslint:disable-next-line: no-unused-expression
+    heroes && localStorage.setItem('testHeroes', JSON.stringify(heroes));
+  }
+
+  tryGetHeroesFromLocalStorage() {
+    const heroes = localStorage.getItem('testHeroes');
+    return heroes && heroes.length ? JSON.parse(heroes) : null;
+  }
+
   // getHeroes(): Observable<Hero[]> {
   //   this.messageService.add('HeroService fetched heroes');
   //   return of(HEROES);
@@ -61,16 +71,17 @@ export class HeroService {
   }
 
   tryGetHeroLocally(id: number): Hero {
-    if (!this.heroes || !this.heroes.length) {
-      this.getHeroes().subscribe(heroes => { this.heroes = heroes; return this.findHeroById(id); });
+    const heroesLocal: [] = this.tryGetHeroesFromLocalStorage();
+    if (!heroesLocal) {
+      this.getHeroes().subscribe(heroes => { this.heroes = heroes; this.addHeroesToLocalStorage(heroes); return this.findHeroById(id, heroes); });
       return;
     }
 
-    return this.findHeroById(id);
+    return this.findHeroById(id, heroesLocal);
   }
 
-  private findHeroById(id: number): Hero {
-    return this.heroes.find(h => h.id === id);
+  private findHeroById(id: number, heroes: Hero[]): Hero {
+    return heroes.find(h => h.id === id);
   }
   /** Log a HeroService message with the MessageService */
   private log(message: string) {
@@ -106,16 +117,18 @@ export class HeroService {
   }
 
   updateLocalHero(hero: Hero): void {
-    if (!this.heroes || !this.heroes.length) {
-      this.getHeroes().subscribe(heroes => { this.heroes = heroes; this.updateHeroName(hero); });
+    const heroesLocal: [] = this.tryGetHeroesFromLocalStorage();
+    if (!heroesLocal) {
+      this.getHeroes().subscribe(heroes => { this.heroes = heroes; this.addHeroesToLocalStorage(heroesLocal); this.updateHeroName(hero, heroes); });
       return;
     }
 
-    this.updateHeroName(hero);
+    this.updateHeroName(hero, heroesLocal);
   }
 
-  updateHeroName(hero: Hero) {
-    this.heroes.find(h => h.id === hero.id).name = hero.name; // only first found item is changed;
+  updateHeroName(hero: Hero, heroes: Hero[]) {
+    heroes.find(h => h.id === hero.id).name = hero.name; // only first found item is changed;
+    this.addHeroesToLocalStorage(heroes);
     // this.heroes.forEach((element, index) => {  //to change all names
     //   if (element.name === hero.name) {
     //     this.heroes[index].name = hero.name;

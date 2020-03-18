@@ -691,9 +691,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       _createClass(DashboardComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          if (!this.heroes || !this.heroes.length) {
-            this.getHeroes();
-          }
+          this.getHeroes();
         }
       }, {
         key: "getHeroes",
@@ -701,7 +699,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           var _this = this;
 
           this.heroService.getHeroes().subscribe(function (heroes) {
-            return _this.heroes = _this.getRandomHeroes(heroes);
+            _this.heroes = _this.getRandomHeroes(heroes); // tslint:disable-next-line: no-unused-expression
+
+            !_this.heroService.tryGetHeroesFromLocalStorage() && _this.heroService.addHeroesToLocalStorage(heroes);
           });
         }
       }, {
@@ -1487,15 +1487,27 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             'Content-Type': 'application/json'
           })
         };
-      } // getHeroes(): Observable<Hero[]> {
-      //   this.messageService.add('HeroService fetched heroes');
-      //   return of(HEROES);
-      // }
-
-      /** GET heroes from the server */
-
+      }
 
       _createClass(HeroService, [{
+        key: "addHeroesToLocalStorage",
+        value: function addHeroesToLocalStorage(heroes) {
+          // tslint:disable-next-line: no-unused-expression
+          heroes && localStorage.setItem('testHeroes', JSON.stringify(heroes));
+        }
+      }, {
+        key: "tryGetHeroesFromLocalStorage",
+        value: function tryGetHeroesFromLocalStorage() {
+          var heroes = localStorage.getItem('testHeroes');
+          return heroes && heroes.length ? JSON.parse(heroes) : null;
+        } // getHeroes(): Observable<Hero[]> {
+        //   this.messageService.add('HeroService fetched heroes');
+        //   return of(HEROES);
+        // }
+
+        /** GET heroes from the server */
+
+      }, {
         key: "getHeroes",
         value: function getHeroes() {
           var _this4 = this;
@@ -1526,20 +1538,25 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         value: function tryGetHeroLocally(id) {
           var _this6 = this;
 
-          if (!this.heroes || !this.heroes.length) {
+          var heroesLocal = this.tryGetHeroesFromLocalStorage();
+
+          if (!heroesLocal) {
             this.getHeroes().subscribe(function (heroes) {
               _this6.heroes = heroes;
-              return _this6.findHeroById(id);
+
+              _this6.addHeroesToLocalStorage(heroes);
+
+              return _this6.findHeroById(id, heroes);
             });
             return;
           }
 
-          return this.findHeroById(id);
+          return this.findHeroById(id, heroesLocal);
         }
       }, {
         key: "findHeroById",
-        value: function findHeroById(id) {
-          return this.heroes.find(function (h) {
+        value: function findHeroById(id, heroes) {
+          return heroes.find(function (h) {
             return h.id === id;
           });
         }
@@ -1591,24 +1608,29 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         value: function updateLocalHero(hero) {
           var _this9 = this;
 
-          if (!this.heroes || !this.heroes.length) {
+          var heroesLocal = this.tryGetHeroesFromLocalStorage();
+
+          if (!heroesLocal) {
             this.getHeroes().subscribe(function (heroes) {
               _this9.heroes = heroes;
 
-              _this9.updateHeroName(hero);
+              _this9.addHeroesToLocalStorage(heroesLocal);
+
+              _this9.updateHeroName(hero, heroes);
             });
             return;
           }
 
-          this.updateHeroName(hero);
+          this.updateHeroName(hero, heroesLocal);
         }
       }, {
         key: "updateHeroName",
-        value: function updateHeroName(hero) {
-          this.heroes.find(function (h) {
+        value: function updateHeroName(hero, heroes) {
+          heroes.find(function (h) {
             return h.id === hero.id;
           }).name = hero.name; // only first found item is changed;
-          // this.heroes.forEach((element, index) => {  //to change all names
+
+          this.addHeroesToLocalStorage(heroes); // this.heroes.forEach((element, index) => {  //to change all names
           //   if (element.name === hero.name) {
           //     this.heroes[index].name = hero.name;
           //   }
@@ -1831,7 +1853,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngForOf", ctx_r1.heroService.heroes);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngForOf", ctx_r1.heroService.tryGetHeroesFromLocalStorage());
       }
     } // import { MessageService } from '../message.service';
 
@@ -1850,7 +1872,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       _createClass(HeroesComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          if (!this.heroService.heroes || !this.heroService.heroes.length) {
+          if (!this.heroService.tryGetHeroesFromLocalStorage()) {
             this.getHeroes();
           }
         } // onSelect(hero: Hero): void {
@@ -1864,7 +1886,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           var _this13 = this;
 
           this.heroService.getHeroes().subscribe(function (heroes) {
-            return _this13.heroService.heroes = heroes;
+            return _this13.heroService.addHeroesToLocalStorage(heroes);
           });
         }
       }, {
@@ -1874,10 +1896,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
           if (!name) {
             return;
-          } // tslint:disable-next-line: max-line-length
+          }
 
-
-          this.heroService.heroes.push({
+          var heroesLocal = this.heroService.tryGetHeroesFromLocalStorage();
+          heroesLocal && heroesLocal.push({
             name: name,
             id: this.heroService.newlyAddedId,
             series: {},
@@ -1886,17 +1908,17 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
               extension: 'jpg'
             }
           });
-          this.heroService.newlyAddedId++; // this.heroService.addHero({ name } as Hero)
-          //   .subscribe(hero => {
-          //     this.heroes.push(hero);
-          //   });
+          this.heroService.newlyAddedId++;
+          this.heroService.addHeroesToLocalStorage(heroesLocal);
         }
       }, {
         key: "delete",
         value: function _delete(hero) {
-          this.heroService.heroes = this.heroService.heroes.filter(function (h) {
+          var heroesLocal = this.heroService.tryGetHeroesFromLocalStorage();
+          heroesLocal = heroesLocal.filter(function (h) {
             return h !== hero;
-          }); // this.heroService.deleteHero(hero).subscribe();
+          });
+          this.heroService.addHeroesToLocalStorage(heroesLocal);
         }
       }, {
         key: "getImage",
@@ -1961,7 +1983,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         if (rf & 2) {
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](9);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx.heroService.heroes);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx.heroService.tryGetHeroesFromLocalStorage());
         }
       },
       directives: [_dynatrace_barista_components_card__WEBPACK_IMPORTED_MODULE_2__["DtCard"], _dynatrace_barista_components_card__WEBPACK_IMPORTED_MODULE_2__["DtCardTitle"], _dynatrace_barista_components_input__WEBPACK_IMPORTED_MODULE_3__["DtInput"], _dynatrace_barista_components_button__WEBPACK_IMPORTED_MODULE_4__["DtButton"], _dynatrace_barista_components_icon__WEBPACK_IMPORTED_MODULE_5__["DtIcon"], _angular_common__WEBPACK_IMPORTED_MODULE_6__["NgIf"], _angular_common__WEBPACK_IMPORTED_MODULE_6__["NgForOf"], _angular_router__WEBPACK_IMPORTED_MODULE_7__["RouterLinkWithHref"]],

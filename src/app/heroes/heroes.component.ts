@@ -13,7 +13,7 @@ export class HeroesComponent implements OnInit {
   constructor(public heroService: HeroService/*, private messageService: MessageService*/) { }
 
   ngOnInit() {
-    if (!this.heroService.heroes || !this.heroService.heroes.length) {
+    if (!this.heroService.tryGetHeroesFromLocalStorage()) {
       this.getHeroes();
     }
   }
@@ -24,24 +24,22 @@ export class HeroesComponent implements OnInit {
   // }
 
   getHeroes(): void {
-    this.heroService.getHeroes().subscribe(heroes => this.heroService.heroes = heroes);
+    this.heroService.getHeroes().subscribe(heroes => this.heroService.addHeroesToLocalStorage(heroes));
   }
 
   add(name: string): void {
     name = name.trim();
     if (!name) { return; }
-    // tslint:disable-next-line: max-line-length
-    this.heroService.heroes.push({ name, id: this.heroService.newlyAddedId, series: {}, thumbnail: { path: 'https://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/', extension: 'jpg' } });
+    let heroesLocal = this.heroService.tryGetHeroesFromLocalStorage();
+    heroesLocal && heroesLocal.push({ name, id: this.heroService.newlyAddedId, series: {}, thumbnail: { path: 'https://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/', extension: 'jpg' } });
     this.heroService.newlyAddedId++;
-    // this.heroService.addHero({ name } as Hero)
-    //   .subscribe(hero => {
-    //     this.heroes.push(hero);
-    //   });
+    this.heroService.addHeroesToLocalStorage(heroesLocal);
   }
 
   delete(hero: Hero): void {
-    this.heroService.heroes = this.heroService.heroes.filter(h => h !== hero);
-    // this.heroService.deleteHero(hero).subscribe();
+    let heroesLocal = this.heroService.tryGetHeroesFromLocalStorage();
+    heroesLocal = heroesLocal.filter((h: Hero) => h !== hero);
+    this.heroService.addHeroesToLocalStorage(heroesLocal);
   }
 
   getImage(hero: Hero) {
