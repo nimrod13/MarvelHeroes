@@ -45,8 +45,12 @@ export class HeroDetailComponent implements OnInit {
     //   .subscribe(() => this.goBack());
   }
 
+  setFallbackImg(event) {
+    event.target.src = 'https://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/landscape_xlarge.jpg';
+  }
+
   getImageSrc() {
-    return '';
+    return `${this.hero.thumbnail.path}/landscape_xlarge.jpg`;
   }
 
   getImageSrcSet() {

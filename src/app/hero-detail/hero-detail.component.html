@@ -4,7 +4,7 @@
   <div class="details_container">
     <div class="info_container">
       <div class="info">
-        <img src="https://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/landscape_xlarge.jpg" srcset="{{getImageSrcSet()}}" alt="{{hero.name}}" height="200px">
+        <img src="{{getImageSrc()}}" srcset="{{getImageSrcSet()}}" alt="{{hero.name}}" height="200px" (error)="setFallbackImg($event)">
         <div class="info_text_container">
           <div class="id_box">
             <label class="hero_label">ID</label>
