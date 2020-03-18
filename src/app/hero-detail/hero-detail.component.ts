@@ -45,8 +45,13 @@ export class HeroDetailComponent implements OnInit {
     //   .subscribe(() => this.goBack());
   }
 
-  getImage() {
-    return `${this.hero.thumbnail.path}/standard_xlarge.jpg`;
+  getImageSrc() {
+    return `${this.hero.thumbnail.path}/landscape_xlarge.jpg`;
+  }
+
+  getImageSrcSet() {
+    const path = this.hero.thumbnail.path;
+    return `${path}/landscape_small.jpg 120w, ${path}/landscape_medium.jpg 175w, ${path}/landscape_large.jpg 190w, ${path}/landscape_xlarge.jpg 270w`;
   }
 
   getSeriesItems(hero: Hero) {

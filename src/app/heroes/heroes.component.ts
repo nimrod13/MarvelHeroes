@@ -30,7 +30,7 @@ export class HeroesComponent implements OnInit {
   add(name: string): void {
     name = name.trim();
     if (!name) { return; }
-    let heroesLocal = this.heroService.tryGetHeroesFromLocalStorage();
+    const heroesLocal = this.heroService.tryGetHeroesFromLocalStorage();
     heroesLocal && heroesLocal.push({ name, id: this.heroService.newlyAddedId, series: {}, thumbnail: { path: 'https://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/', extension: 'jpg' } });
     this.heroService.newlyAddedId++;
     this.heroService.addHeroesToLocalStorage(heroesLocal);

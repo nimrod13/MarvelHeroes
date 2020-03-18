@@ -89,11 +89,11 @@ export class HeroService {
   }
 
   /**
- * Handle Http operation that failed.
- * Let the app continue.
- * @param operation - name of the operation that failed
- * @param result - optional value to return as the observable result
- */
+   * Handle Http operation that failed.
+   * Let the app continue.
+   * @param operation - name of the operation that failed
+   * @param result - optional value to return as the observable result
+   */
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
 
@@ -162,7 +162,7 @@ export class HeroService {
       return of([]);
     }
 
-    const url = `${this.marvelAPIBaseURL}?name=${term}&${this.marvelAPIQueryParams}`;
+    const url = `${this.marvelAPIBaseURL}?nameStartsWith=${term}&${this.marvelAPIQueryParams}`;
     return this.http.get<any>(url).pipe(
       tap(x => x.status === 'Ok' && x.data.results.length ?
         this.log(`found heroes matching "${term}"`) :
