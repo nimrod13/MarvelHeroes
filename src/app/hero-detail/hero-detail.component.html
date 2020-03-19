@@ -6,15 +6,24 @@
       <div class="info">
         <img src="{{getImageSrc()}}" srcset="{{getImageSrcSet()}}" alt="{{hero.name}}" height="200px" appFallbackimg>
         <div class="info_text_container">
-          <div class="id_box">
+          <div class="info_row">
             <label class="hero_label">ID</label>
             <p class="hero_id">{{hero.id}}</p>
           </div>
-          <div>
+          <div class="info_row">
             <label>Name:</label>
+            <!-- <em><span style="display: flex">
+                {{hero.name}}
+              </span>
+            </em> -->
             <em dt-inline-editor [(ngModel)]="hero.name" ariaLabelSave="Save name"
-              ariaLabelCancel="Cancel and discard changes"></em>
+            ariaLabelCancel="Cancel and discard changes"></em>
           </div>
+          <!-- <div class="info_row">
+            <label>Nickname:</label>
+            <em dt-inline-editor [(ngModel)]="hero.nickname" ariaLabelSave="Save nickname"
+              ariaLabelCancel="Cancel and discard changes"></em>
+          </div> -->
         </div>
       </div>
     </div>

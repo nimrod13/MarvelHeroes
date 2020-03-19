@@ -20,8 +20,9 @@ import { DtCardModule } from '@dynatrace/barista-components/card';
 import { DtInlineEditorModule } from '@dynatrace/barista-components/inline-editor';
 import { AttributionComponent } from './attribution/attribution.component';
 import { LoadingComponent } from './dashboard/loading/loading.component';
-import { DtPaginationModule } from '@dynatrace/barista-components/pagination';
 import { FallbackimgDirective } from './fallbackimg.directive';
+import { DtPaginationModule } from '@dynatrace/barista-components/pagination';
+import { DtToastModule } from '@dynatrace/barista-components/toast';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { FallbackimgDirective } from './fallbackimg.directive';
     DtCardModule,
     DtInlineEditorModule,
     DtLoadingDistractorModule,
-    DtPaginationModule
+    DtPaginationModule,
+    DtToastModule
   ],
   providers: [],
   bootstrap: [AppComponent]

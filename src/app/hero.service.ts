@@ -4,6 +4,7 @@ import { Observable, of } from 'rxjs';
 import { MessageService } from './message.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
+import { DtToast } from '@dynatrace/barista-components/toast';
 
 @Injectable({
   providedIn: 'root'
@@ -20,12 +21,11 @@ export class HeroService {
   // tslint:disable-next-line: max-line-length
   private marvelAPIBaseURL = 'https://gateway.marvel.com/v1/public/characters';
   private marvelAPIQueryParams = `ts=${this.marvelAPI.ts}&apikey=${this.marvelAPI.publicKey}&hash=${this.marvelAPI.hash}`;
-  public heroes: Hero[];
-  public newlyAddedId = 20000;
 
   constructor(
     private http: HttpClient,
-    private messageService: MessageService) { }
+    private messageService: MessageService,
+    private toast: DtToast) { }
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -48,7 +48,7 @@ export class HeroService {
 
   /** GET heroes from the server */
   getHeroes(): Observable<Hero[]> {
-    const marvelAPIURL = `${this.marvelAPIBaseURL}?${this.marvelAPIQueryParams}`;
+    const marvelAPIURL = `${this.marvelAPIBaseURL}?limit=100&${this.marvelAPIQueryParams}`;
     return this.http.get<any>(marvelAPIURL)
       .pipe(
         tap(_ => this.log('fetched heroes')),
@@ -71,9 +71,9 @@ export class HeroService {
   }
 
   tryGetHeroLocally(id: number): Hero {
-    const heroesLocal: [] = this.tryGetHeroesFromLocalStorage();
+    const heroesLocal = this.tryGetHeroesFromLocalStorage();
     if (!heroesLocal) {
-      this.getHeroes().subscribe(heroes => { this.heroes = heroes; this.addHeroesToLocalStorage(heroes); return this.findHeroById(id, heroes); });
+      this.getHeroes().subscribe(heroes => { this.addHeroesToLocalStorage(heroes); return this.findHeroById(id, heroes); });
       return;
     }
 
@@ -119,7 +119,7 @@ export class HeroService {
   updateLocalHero(hero: Hero): void {
     const heroesLocal: [] = this.tryGetHeroesFromLocalStorage();
     if (!heroesLocal) {
-      this.getHeroes().subscribe(heroes => { this.heroes = heroes; this.addHeroesToLocalStorage(heroesLocal); this.updateHeroName(hero, heroes); });
+      this.getHeroes().subscribe(heroes => { this.addHeroesToLocalStorage(heroesLocal); this.updateHeroName(hero, heroes); });
       return;
     }
 
@@ -127,8 +127,21 @@ export class HeroService {
   }
 
   updateHeroName(hero: Hero, heroes: Hero[]) {
-    heroes.find(h => h.id === hero.id).name = hero.name; // only first found item is changed;
+    const heroCurrent = heroes.find(h => h.id === hero.id);
+
+    if (!heroCurrent) {
+      this.toast.create('This name cannot be changed!');
+      return;
+    }
+
+    if (heroCurrent.name === hero.name) {
+      this.toast.create('You have not made any changes!');
+      return;
+    }
+
+    heroCurrent.name = hero.name; // only first found item is changed;
     this.addHeroesToLocalStorage(heroes);
+    this.toast.create('Your changes have been saved!');
     // this.heroes.forEach((element, index) => {  //to change all names
     //   if (element.name === hero.name) {
     //     this.heroes[index].name = hero.name;

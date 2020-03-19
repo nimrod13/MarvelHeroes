@@ -1,0 +1,9 @@
+<ng-container *ngIf="show">
+  <dt-table [dataSource]="dataSource">
+    <dt-simple-text-column name="id" sortable="true"></dt-simple-text-column>
+    <dt-simple-number-column name="name" label="Name" sortable="true"></dt-simple-number-column>
+    <dt-header-row *dtHeaderRowDef="['id', 'name']"></dt-header-row>
+    <dt-row *dtRowDef="let row; columns: ['id', 'name']"></dt-row>
+  </dt-table>
+  <dt-pagination></dt-pagination>
+</ng-container>

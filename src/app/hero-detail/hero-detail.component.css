@@ -1,7 +1,6 @@
 /* HeroDetailComponent's private CSS styles */
 label {
   display: inline-block;
-  margin: .5em 0;
   color: #607D8B;
   font-weight: bold;
 }
@@ -41,7 +40,6 @@ img {
 }
 
 .details {
-  max-width: 700px;
   width: 100%;
   display: inline-block;
 }
@@ -67,8 +65,8 @@ img {
   border-right: 1px solid #e1e1e1;
 }
 
-.info .id_box {
-  margin: 0 0 20px;
+.info_row+.info_row {
+  margin: 10px 0 0;
 }
 
 .hero_id_label {
@@ -103,4 +101,8 @@ p,
 
 .series_text_container {
   padding: 2em;
+}
+
+em {
+  width: 50%;
 }

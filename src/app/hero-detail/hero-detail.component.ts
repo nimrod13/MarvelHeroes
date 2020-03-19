@@ -17,13 +17,17 @@ export class HeroDetailComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private heroService: HeroService,
-    private location: Location
+    private location: Location,
   ) { }
 
   ngOnInit() {
     if (!this.hero) {
       this.getHero();
     }
+
+    // if (!this.hero.nickname) {
+    //   this.hero.nickname = this.hero.name;
+    // }
   }
 
   getHero(): void {
@@ -40,18 +44,23 @@ export class HeroDetailComponent implements OnInit {
   }
 
   save(): void {
-    this.heroService.updateLocalHero(this.hero);
+    this.heroService.updateLocalHero(this.hero);;
     // this.heroService.updateHero(this.hero)
     //   .subscribe(() => this.goBack());
   }
 
   getImageSrc() {
-    return `${this.hero.thumbnail.path}/alandscape_xlarge.jpg`;
+    const path = this.getPathWithHttps();
+    return `${path}/landscape_xlarge.jpg`;
   }
 
   getImageSrcSet() {
-    const path = this.hero.thumbnail.path.replace('http', 'https');
+    const path = this.getPathWithHttps();
     return `${path}/landscape_small.jpg 120w, ${path}/landscape_medium.jpg 175w, ${path}/landscape_large.jpg 190w, ${path}/landscape_xlarge.jpg 270w`;
+  }
+
+  getPathWithHttps() {
+    return this.hero.thumbnail.path.indexOf('https') >= 0 ? this.hero.thumbnail.path : this.hero.thumbnail.path.replace('http', 'https');
   }
 
   getSeriesItems(hero: Hero) {
