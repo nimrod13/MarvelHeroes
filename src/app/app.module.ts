@@ -23,6 +23,9 @@ import { LoadingComponent } from './dashboard/loading/loading.component';
 import { FallbackimgDirective } from './fallbackimg.directive';
 import { DtPaginationModule } from '@dynatrace/barista-components/pagination';
 import { DtToastModule } from '@dynatrace/barista-components/toast';
+import { DtTableModule } from '@dynatrace/barista-components/table';
+import { DynamicTableComponent } from './dynamic-table/dynamic-table.component';
+
 
 @NgModule({
   declarations: [
@@ -34,7 +37,8 @@ import { DtToastModule } from '@dynatrace/barista-components/toast';
     HeroSearchComponent,
     AttributionComponent,
     LoadingComponent,
-    FallbackimgDirective
+    FallbackimgDirective,
+    DynamicTableComponent
   ],
   imports: [
     BrowserModule,
@@ -52,7 +56,8 @@ import { DtToastModule } from '@dynatrace/barista-components/toast';
     DtInlineEditorModule,
     DtLoadingDistractorModule,
     DtPaginationModule,
-    DtToastModule
+    DtToastModule,
+    DtTableModule
   ],
   providers: [],
   bootstrap: [AppComponent]

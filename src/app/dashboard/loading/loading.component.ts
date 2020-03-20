@@ -9,7 +9,5 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 export class LoadingComponent implements OnInit {
   constructor() { }
 
-  ngOnInit() {
-  }
-
+  ngOnInit() { }
 }

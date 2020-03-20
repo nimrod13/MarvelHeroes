@@ -1,9 +1,23 @@
-<ng-container *ngIf="show">
-  <dt-table [dataSource]="dataSource">
-    <dt-simple-text-column name="id" sortable="true"></dt-simple-text-column>
-    <dt-simple-number-column name="name" label="Name" sortable="true"></dt-simple-number-column>
-    <dt-header-row *dtHeaderRowDef="['id', 'name']"></dt-header-row>
-    <dt-row *dtRowDef="let row; columns: ['id', 'name']"></dt-row>
+<ng-container>
+  <dt-table [dataSource]="dataSource" interactiveRows>
+    <dt-simple-text-column name="id" label="Id" sortable="false"></dt-simple-text-column>
+    <dt-simple-text-column name="name" label="Name" sortable="false"></dt-simple-text-column>
+    <dt-favorite-column name="favorite" sortable="false" (favoriteToggled)="toggleFavorite($event)">
+    </dt-favorite-column>
+    <dt-header-row *dtHeaderRowDef="['id', 'name', 'favorite']"></dt-header-row>
+    <dt-row *dtRowDef="let row; columns: ['id', 'name', 'favorite']"></dt-row>
   </dt-table>
   <dt-pagination></dt-pagination>
 </ng-container>
+
+<!-- <ul class="heroes" *ngIf="heroService.tryGetHeroesFromLocalStorage()">
+  <li *ngFor="let hero of heroService.tryGetHeroesFromLocalStorage()">
+    <a routerLink="/detail/{{hero.id}}">
+      <span class="badge">{{hero.id}}</span>
+      <span class="name">{{hero.name}}</span>
+    </a>
+    <button class="delete" title="delete hero" (click)="delete(hero)">
+      x
+    </button>
+  </li>
+</ul> -->

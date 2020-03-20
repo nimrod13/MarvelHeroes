@@ -66,4 +66,8 @@ export class HeroDetailComponent implements OnInit {
   getSeriesItems(hero: Hero) {
     return hero.series.available > 0 ? hero.series.items : null;
   }
+
+  getStories(hero: Hero) {
+    return hero.stories.available > 0 ? hero.stories.items : null;
+  }
 }

@@ -59,7 +59,7 @@ img {
   border: 1px solid #e1e1e1;
 }
 
-.series {
+.items {
   border-bottom: 1px solid #e1e1e1;
   border-left: 1px solid #e1e1e1;
   border-right: 1px solid #e1e1e1;
@@ -99,8 +99,12 @@ p,
   padding-top: 2em;
 }
 
-.series_text_container {
+.items_text_container {
   padding: 2em;
+}
+
+.items_text_container label {
+  padding-bottom: 10px;
 }
 
 em {

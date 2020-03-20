@@ -17,7 +17,7 @@
               </span>
             </em> -->
             <em dt-inline-editor [(ngModel)]="hero.name" ariaLabelSave="Save name"
-            ariaLabelCancel="Cancel and discard changes"></em>
+              ariaLabelCancel="Cancel and discard changes"></em>
           </div>
           <!-- <div class="info_row">
             <label>Nickname:</label>
@@ -29,11 +29,23 @@
     </div>
 
     <div class="info_container" *ngIf="getSeriesItems(hero)">
-      <div class="series">
-        <div class="series_text_container">
+      <div class="items">
+        <div class="items_text_container">
           <div>
-            <label>Series</label>
-            <p class="hero_serie" *ngFor="let serie of getSeriesItems(hero)">{{serie.name}}</p>
+            <label>Comic series</label>
+            <p *ngFor="let serie of getSeriesItems(hero)">{{serie.name}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="info_container" *ngIf="getStories(hero)">
+      <div class="items">
+        <div class="items_text_container">
+          <div>
+            <label>Stories</label>
+            <p *ngFor="let story of getStories(hero)">{{story.name}}</p>
           </div>
         </div>
       </div>
