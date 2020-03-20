@@ -11,6 +11,8 @@
 
 a {
   text-decoration: none;
+  padding: 10px;
+  width: 25%;
 }
 
 *,
@@ -27,6 +29,7 @@ h2 {
 
 h4 {
   position: relative;
+  max-height: 44px;
 }
 
 .grid {
@@ -98,4 +101,122 @@ h4 {
   .module {
     min-width: 60px;
   }
+}
+
+.borders {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  width: 100%;
+  overflow: hidden;
+  background: #002554;
+}
+
+
+.corner-top,
+.corner-bottom {
+  -webkit-transition: 0.2s ease-in-out opacity, 0.2s ease-in-out transform;
+  transition: 0.2s ease-in-out opacity, 0.2s ease-in-out transform;
+}
+
+.corner-top,
+.corner-bottom {
+  position: absolute;
+  display: block;
+  top: 9px;
+  bottom: 9px;
+  left: 9px;
+  right: 9px;
+  opacity: 0;
+  -webkit-transform: scale(0.5);
+  transform: scale(0.5);
+}
+
+
+a.borders:hover .corner-top,
+a.borders:hover .corner-bottom,
+a.details-link:hover .corner-top,
+a.details-link:hover .corner-bottom {
+  opacity: 1;
+  -webkit-transform: scale(1);
+  transform: scale(1);
+  will-change: transform, opacity;
+}
+
+a.borders:hover:after,
+a.details-link:hover .borders:after {
+  opacity: 0;
+}
+
+.corner-top,
+.corner-bottom,
+.corner-top:before,
+.corner-top:after,
+.corner-bottom:before,
+.corner-bottom:after {
+  z-index: 20;
+}
+
+.corner-top:before,
+.corner-top:after,
+.corner-bottom:before,
+.corner-bottom:after {
+  content: "";
+  position: absolute;
+  display: block;
+  width: 15px;
+  height: 15px;
+  border-color: #fff;
+  border-style: solid;
+  border-width: 0;
+}
+
+.corner-top:before,
+.corner-top:after {
+  top: 0;
+  border-top-width: 2px;
+}
+
+.corner-bottom:before,
+.corner-bottom:after {
+  bottom: 0;
+  border-bottom-width: 2px;
+}
+
+.corner-top:before,
+.corner-bottom:before {
+  left: 0;
+  border-left-width: 2px;
+}
+
+
+.corner-top:after,
+.corner-bottom:after {
+  right: 0;
+  border-right-width: 2px;
+}
+
+.corner-top:before {
+  border-top-left-radius: 0;
+  border-top-left-radius: 2px;
+}
+
+.corner-top:after {
+  border-top-right-radius: 0;
+  border-top-right-radius: 2px;
+}
+
+.corner-bottom:before {
+  border-bottom-left-radius: 0;
+  border-bottom-left-radius: 2px;
+}
+
+.corner-bottom:after {
+  border-bottom-right-radius: 0;
+  border-bottom-right-radius: 2px;
 }
