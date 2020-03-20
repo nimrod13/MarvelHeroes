@@ -60,9 +60,3 @@ nav .dt-button-group-item:hover {
 .dt-button-group-item+.dt-button-group-item {
   margin-left: 8px;
 }
-
-/*
-nav a.active,
-nav .dt-button-group-item.active {
-  color: #039be5;
-} */

@@ -118,8 +118,8 @@ h4 {
 
 .corner-top,
 .corner-bottom {
-  -webkit-transition: 0.3s cubic-bezier(0.695, -0.030, 0.630, 1.065)  opacity, 0.3 cubic-bezier(0.695, -0.030, 0.630, 1.065)  transform;
-  transition: 0.3s cubic-bezier(0.695, -0.030, 0.630, 1.065) opacity, 0.3s cubic-bezier(0.695, -0.030, 0.630, 1.065)  transform;
+  -webkit-transition: 0.3s cubic-bezier(0.695, -0.030, 0.630, 1.065) opacity, 0.3 cubic-bezier(0.695, -0.030, 0.630, 1.065) transform;
+  transition: 0.3s cubic-bezier(0.695, -0.030, 0.630, 1.065) opacity, 0.3s cubic-bezier(0.695, -0.030, 0.630, 1.065) transform;
 }
 
 .corner-top,
@@ -217,4 +217,8 @@ a.details-link:hover .borders:after {
 .corner-bottom:after {
   border-bottom-right-radius: 0;
   border-bottom-right-radius: 2px;
+}
+
+.dt-card {
+  margin: 0 10px;
 }

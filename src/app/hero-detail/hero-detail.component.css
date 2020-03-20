@@ -1,4 +1,9 @@
 /* HeroDetailComponent's private CSS styles */
+
+h2 {
+  text-align: center;
+}
+
 label {
   display: inline-block;
   color: #607D8B;
@@ -35,13 +40,33 @@ button:disabled {
   margin-left: 8px;
 }
 
-img {
-  float: right;
+.info_row {
+  display: flex;
+  margin: auto;
+  flex-direction: column;
 }
 
-.details {
-  width: 100%;
-  display: inline-block;
+@media (min-width: 578px) {
+  img {
+    float: right;
+  }
+}
+
+@media (max-width: 700px) {
+  .details, .buttons {
+    margin: 0 10px;
+  }
+}
+
+@media (max-width: 577px) {
+  img {
+    display: flex;
+    margin: auto;
+  }
+
+  details{
+    overflow: hidden;
+  }
 }
 
 .details_container {

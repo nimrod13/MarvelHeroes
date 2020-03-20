@@ -105,3 +105,22 @@ button.delete:hover {
   border-bottom: 1px solid rgba(14, 30, 37, .12);
   background: white;
 }
+
+.scroll {
+  transform: rotate(0);
+  z-index: 20;
+  width: 40px;
+  height: 40px;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  fill: #00a1b2;
+  -webkit-transition: transform .35s ease-in-out;
+  transition: transform .35s ease-in-out;
+  transition-delay: 1.5s;
+  cursor: pointer;
+}
+
+.scrolltop {
+  transform: rotate(180deg);
+}

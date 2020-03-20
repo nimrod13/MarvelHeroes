@@ -21,7 +21,7 @@ export class HeroService {
   // tslint:disable-next-line: max-line-length
   private marvelAPIBaseURL = 'https://gateway.marvel.com/v1/public/characters';
   private marvelAPIQueryParams = `ts=${this.marvelAPI.ts}&apikey=${this.marvelAPI.publicKey}&hash=${this.marvelAPI.hash}`;
-  public heroesLocal;
+  public heroesLocal: any;
 
   constructor(
     private http: HttpClient,
@@ -33,7 +33,6 @@ export class HeroService {
   };
 
   addHeroesToLocalStorage(heroes: Hero[]) {
-    // tslint:disable-next-line: no-unused-expression
     heroes && localStorage.setItem('testHeroes', JSON.stringify(heroes));
   }
 

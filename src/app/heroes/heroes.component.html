@@ -9,7 +9,7 @@
     </button>
   </div>
 
-  <ul class="heroes" *ngIf="heroService.tryGetHeroesFromLocalStorage()">
+  <ul class="heroes" *ngIf="heroService.tryGetHeroesFromLocalStorage()" #heroesContainer>
     <li *ngFor="let hero of heroService.tryGetHeroesFromLocalStorage()">
       <a routerLink="/detail/{{hero.id}}">
         <span class="badge">{{hero.id}}</span>
@@ -21,5 +21,7 @@
       </button>
     </li>
   </ul>
+
+  <dt-icon name="dropdownopen" class="scroll" [ngClass]="{'scrolltop': !isTop}" (click)="toggleScroll()"></dt-icon>
   <!-- <app-dynamic-table></app-dynamic-table> -->
 </div>
