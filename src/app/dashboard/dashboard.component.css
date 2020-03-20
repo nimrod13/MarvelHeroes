@@ -120,18 +120,18 @@ h4 {
 
 .corner-top,
 .corner-bottom {
-  -webkit-transition: 0.2s ease-in-out opacity, 0.2s ease-in-out transform;
-  transition: 0.2s ease-in-out opacity, 0.2s ease-in-out transform;
+  -webkit-transition: 0.35s ease-in-out opacity, 0.35 ease-in-out transform;
+  transition: 0.35s ease-in-out opacity, 0.35s ease-in-out transform;
 }
 
 .corner-top,
 .corner-bottom {
   position: absolute;
   display: block;
-  top: 9px;
-  bottom: 9px;
-  left: 9px;
-  right: 9px;
+  top: 10px;
+  bottom: 10px;
+  left: 10px;
+  right: 10px;
   opacity: 0;
   -webkit-transform: scale(0.5);
   transform: scale(0.5);
@@ -143,8 +143,8 @@ a.borders:hover .corner-bottom,
 a.details-link:hover .corner-top,
 a.details-link:hover .corner-bottom {
   opacity: 1;
-  -webkit-transform: scale(1);
-  transform: scale(1);
+  -webkit-transform: scale(.95);
+  transform: scale(.95);
   will-change: transform, opacity;
 }
 
@@ -159,7 +159,7 @@ a.details-link:hover .borders:after {
 .corner-top:after,
 .corner-bottom:before,
 .corner-bottom:after {
-  z-index: 20;
+  z-index: 10;
 }
 
 .corner-top:before,
@@ -169,9 +169,9 @@ a.details-link:hover .borders:after {
   content: "";
   position: absolute;
   display: block;
-  width: 15px;
-  height: 15px;
-  border-color: #fff;
+  width: 13px;
+  height: 13px;
+  border-color: #e9e8de;
   border-style: solid;
   border-width: 0;
 }
