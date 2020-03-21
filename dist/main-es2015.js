@@ -897,7 +897,7 @@ class HeroSearchComponent {
         // ignore new term if same as previous term
         Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["distinctUntilChanged"])(), 
         // switch to new search observable each time the term changes
-        Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["switchMap"])((term) => this.heroService.searchHeroes(term)));
+        Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["switchMap"])((term) => this.heroService.searchLocalHeroes(term)));
     }
 }
 HeroSearchComponent.ɵfac = function HeroSearchComponent_Factory(t) { return new (t || HeroSearchComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_hero_service__WEBPACK_IMPORTED_MODULE_3__["HeroService"])); };
@@ -1036,7 +1036,7 @@ class HeroService {
         return this.http.put(this.heroesUrl, hero, this.httpOptions).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["tap"])(_ => this.log(`updated hero id=${hero.id}`)), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.handleError('updateHero')));
     }
     updateLocalHero(hero) {
-        const heroesLocal = this.tryGetHeroesFromLocalStorage();
+        const heroesLocal = this.heroesLocal || this.tryGetHeroesFromLocalStorage();
         if (!heroesLocal) {
             this.getHeroes().subscribe(heroes => { this.addHeroesToLocalStorage(heroesLocal); this.updateHeroName(hero, heroes); });
             return;
@@ -1082,6 +1082,13 @@ class HeroService {
         return this.http.get(url).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["tap"])(x => x.status === 'Ok' && x.data.results.length ?
             this.log(`found heroes matching "${term}"`) :
             this.log(`no heroes matching "${term}"`)), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(res => res.data.results), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.handleError('searchHeroes', [])));
+    }
+    searchLocalHeroes(term) {
+        const heroesLocal = this.heroesLocal || this.tryGetHeroesFromLocalStorage();
+        if (!heroesLocal) {
+            return this.searchHeroes(term);
+        }
+        return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["of"])(heroesLocal.filter(h => h.name.includes(term)));
     }
 }
 HeroService.ɵfac = function HeroService_Factory(t) { return new (t || HeroService)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_message_service__WEBPACK_IMPORTED_MODULE_4__["MessageService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_dynatrace_barista_components_toast__WEBPACK_IMPORTED_MODULE_5__["DtToast"])); };
@@ -1154,7 +1161,7 @@ function HeroesComponent_div_9_Template(rf, ctx) { if (rf & 1) {
 } if (rf & 2) {
     const ctx_r1 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngForOf", ctx_r1.heroService.tryGetHeroesFromLocalStorage());
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngForOf", ctx_r1.heroService.heroesLocal);
 } }
 class HeroesComponent {
     constructor(heroService /*, private messageService: MessageService*/) {

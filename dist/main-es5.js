@@ -1824,7 +1824,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["debounceTime"])(300), // ignore new term if same as previous term
           Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["distinctUntilChanged"])(), // switch to new search observable each time the term changes
           Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["switchMap"])(function (term) {
-            return _this4.heroService.searchHeroes(term);
+            return _this4.heroService.searchLocalHeroes(term);
           }));
         }
       }]);
@@ -2110,7 +2110,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         value: function updateLocalHero(hero) {
           var _this10 = this;
 
-          var heroesLocal = this.tryGetHeroesFromLocalStorage();
+          var heroesLocal = this.heroesLocal || this.tryGetHeroesFromLocalStorage();
 
           if (!heroesLocal) {
             this.getHeroes().subscribe(function (heroes) {
@@ -2191,6 +2191,19 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (res) {
             return res.data.results;
           }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.handleError('searchHeroes', [])));
+        }
+      }, {
+        key: "searchLocalHeroes",
+        value: function searchLocalHeroes(term) {
+          var heroesLocal = this.heroesLocal || this.tryGetHeroesFromLocalStorage();
+
+          if (!heroesLocal) {
+            return this.searchHeroes(term);
+          }
+
+          return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["of"])(heroesLocal.filter(function (h) {
+            return h.name.includes(term);
+          }));
         }
       }]);
 
@@ -2364,7 +2377,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngForOf", ctx_r1.heroService.tryGetHeroesFromLocalStorage());
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngForOf", ctx_r1.heroService.heroesLocal);
       }
     }
 

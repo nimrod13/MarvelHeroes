@@ -21,7 +21,7 @@ export class HeroService {
   // tslint:disable-next-line: max-line-length
   private marvelAPIBaseURL = 'https://gateway.marvel.com/v1/public/characters';
   private marvelAPIQueryParams = `ts=${this.marvelAPI.ts}&apikey=${this.marvelAPI.publicKey}&hash=${this.marvelAPI.hash}`;
-  public heroesLocal: any;
+  public heroesLocal: Hero[];
 
   constructor(
     private http: HttpClient,
@@ -117,7 +117,7 @@ export class HeroService {
   }
 
   updateLocalHero(hero: Hero): void {
-    const heroesLocal: [] = this.tryGetHeroesFromLocalStorage();
+    const heroesLocal: [] = this.heroesLocal || this.tryGetHeroesFromLocalStorage();
     if (!heroesLocal) {
       this.getHeroes().subscribe(heroes => { this.addHeroesToLocalStorage(heroesLocal); this.updateHeroName(hero, heroes); });
       return;
@@ -184,5 +184,14 @@ export class HeroService {
       map(res => res.data.results),
       catchError(this.handleError<Hero[]>('searchHeroes', [])),
     );
+  }
+
+  searchLocalHeroes(term: string): Observable<Hero[]> {
+    const heroesLocal: Hero[] = this.heroesLocal || this.tryGetHeroesFromLocalStorage();
+    if (!heroesLocal) {
+      return this.searchHeroes(term);
+    }
+
+    return of(heroesLocal.filter(h => h.name.includes(term)));
   }
 }
