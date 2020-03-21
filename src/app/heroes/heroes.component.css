@@ -136,6 +136,17 @@ button.delete:hover {
   transform: rotate(180deg);
 }
 
+@media (max-width: 440px){
+  .scroll{
+    background: #e0e0e0b8;
+    border: 1px solid #45464626
+  }
+
+  .heroes {
+    width: 100%;
+  }
+}
+
 .add-icon {
   display: inline-block;
   width: 20px;
