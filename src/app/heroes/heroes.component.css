@@ -136,14 +136,21 @@ button.delete:hover {
   transform: rotate(180deg);
 }
 
-@media (max-width: 440px){
-  .scroll{
+@media (max-width: 440px) {
+  .scroll {
     background: #e0e0e0b8;
     border: 1px solid #45464626
   }
 
   .heroes {
     width: 100%;
+  }
+
+  .heroes a {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px;
   }
 }
 

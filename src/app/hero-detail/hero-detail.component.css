@@ -58,6 +58,8 @@ button:disabled {
   img {
     display: flex;
     margin: auto;
+    margin-top: 10px;
+    box-shadow: 2px 2px 2px lightgrey;
   }
 
   details {
