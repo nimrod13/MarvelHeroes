@@ -1,4 +1,7 @@
-/* HeroesComponent's private CSS styles */
+.heroes_container {
+  margin: 0 10px;
+}
+
 .heroes {
   list-style-type: none;
   padding: 0;

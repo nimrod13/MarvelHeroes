@@ -34,3 +34,7 @@ body {
 html {
   background-color: rgba(154, 170, 174, 0.06);
 }
+
+.dt-card {
+  margin: 0 10px;
+}
