@@ -1,13 +1,14 @@
 /* HeroesComponent's private CSS styles */
 .heroes {
-  margin: 0 0 2em 0;
   list-style-type: none;
   padding: 0;
   width: 75%;
+  display: table;
+  margin-top: 10px;
 }
 
 .heroes li {
-  position: relative;
+  display: table-row;
   cursor: pointer;
   background-color: #EEE;
   margin: .5em;
@@ -26,7 +27,8 @@
   color: #333;
   text-decoration: none;
   position: relative;
-  display: block;
+  display: inline-block;
+  width: calc(100% - 26.5px);
 }
 
 .heroes a:hover {
@@ -34,29 +36,37 @@
 }
 
 .heroes .badge {
-  display: inline-block;
+  display: inline-table;
   font-size: small;
   color: white;
-  padding: 0.8em 0.7em 0 0.7em;
+  padding: 0.6em 0.6em 0 0.6em;
   background-color: #00a1b2;
   line-height: 1em;
   position: relative;
-  left: -1px;
-  top: -4px;
-  height: 1.6em;
+  height: 1.5em;
   min-width: 16px;
   text-align: right;
   margin-right: .8em;
-  border-radius: 4px 0 0 4px;
 }
 
-.heroes .badge:hover {
+.heroes .badge:hover,
+.heroes li:hover .badge {
   background-color: #2d8b95;
+  transform: scale(1.05);
 }
 
-.heroes span.name {
-  display: inline-block;
-  vertical-align: text-bottom;
+.hero_input {
+  display: inline-flex;
+  width: 75%;
+  margin-right: 10px;
+}
+
+.inline-flex {
+  display: inline-flex;
+}
+
+.flex {
+  display: flex;
 }
 
 button {
@@ -72,12 +82,10 @@ button:hover {
 }
 
 button.delete {
-  position: relative;
-  left: calc(100% - 28px);
-  top: -33px;
   background-color: gray;
   color: white;
-  padding: 5px 10px;
+  padding: 4px 10px;
+  float: right;
 }
 
 button.delete:hover {
@@ -117,7 +125,7 @@ button.delete:hover {
   fill: #00a1b2;
   -webkit-transition: transform .35s ease-in-out;
   transition: transform .35s ease-in-out;
-  transition-delay: 1.5s;
+  transition-delay: 1s;
   cursor: pointer;
 }
 

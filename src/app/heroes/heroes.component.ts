@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { Hero } from '../hero';
 import { HeroService } from '../hero.service';
 
@@ -11,6 +11,11 @@ import { HeroService } from '../hero.service';
 export class HeroesComponent implements OnInit {
   @ViewChild('heroesContainer') heroesContainer: ElementRef;
   public isTop = true;
+
+  @HostListener('window:scroll', ['$event'])
+  handleScroll() {
+    this.isTop = window.pageYOffset <= window.innerHeight / 2;
+  }
 
   constructor(public heroService: HeroService/*, private messageService: MessageService*/) { }
 

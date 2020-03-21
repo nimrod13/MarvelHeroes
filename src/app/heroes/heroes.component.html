@@ -1,15 +1,15 @@
 <div class="heroes_container">
   <h2>Heroes</h2>
-  <div class="inline">
-    <input type="text" dtInput placeholder="Please add hero name" #heroName />
+  <div class="flex">
+    <input type="text" class="hero_input" dtInput placeholder="Please add hero name" #heroName />
     <!-- (click) passes input value to add() and then clears the input -->
-    <button dt-button (click)="add(heroName.value); heroName.value=''">
+    <button class="inline-flex" dt-button (click)="add(heroName.value); heroName.value=''">
       <dt-icon name="plus-add"></dt-icon>
       Add
     </button>
   </div>
 
-  <ul class="heroes" *ngIf="heroService.tryGetHeroesFromLocalStorage()" #heroesContainer>
+  <div class="heroes" *ngIf="heroService.tryGetHeroesFromLocalStorage()" #heroesContainer>
     <li *ngFor="let hero of heroService.tryGetHeroesFromLocalStorage()">
       <a routerLink="/detail/{{hero.id}}">
         <span class="badge">{{hero.id}}</span>
@@ -20,8 +20,8 @@
         x
       </button>
     </li>
-  </ul>
+  </div>
 
-  <dt-icon name="dropdownopen" class="scroll" [ngClass]="{'scrolltop': !isTop}" (click)="toggleScroll()"></dt-icon>
+  <dt-icon name="dropdownopen" class="scroll" [class.scrolltop]="!isTop" (click)="toggleScroll()"></dt-icon>
   <!-- <app-dynamic-table></app-dynamic-table> -->
 </div>
