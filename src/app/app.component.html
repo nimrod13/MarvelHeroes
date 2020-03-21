@@ -2,11 +2,9 @@
   <h1>{{title | uppercase}}</h1>
 </header>
 <div class="container">
-  <nav>
-    <dt-button-group>
-      <dt-button-group-item dt-button routerLink="/dashboard">Dashboard</dt-button-group-item>
-      <dt-button-group-item dt-button routerLink="/heroes">Heroes</dt-button-group-item>
-    </dt-button-group>
+  <nav (click)="onButtonGroupClick($event)">
+    <button type="button" class="button-item" routerLink="/dashboard">Dashboard</button>
+    <button type="button" class="button-item" routerLink="/heroes">Heroes</button>
   </nav>
   <router-outlet></router-outlet>
   <app-messages></app-messages>
