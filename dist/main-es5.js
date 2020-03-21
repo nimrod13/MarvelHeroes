@@ -120,7 +120,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         return new (t || AppRoutingModule)();
       },
       imports: [[_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"].forRoot(routes, {
-        scrollPositionRestoration: 'top'
+        scrollPositionRestoration: 'top',
+        useHash: true
       })], _angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"]]
     });
 
@@ -138,7 +139,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"],
         args: [{
           imports: [_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"].forRoot(routes, {
-            scrollPositionRestoration: 'top'
+            scrollPositionRestoration: 'top',
+            useHash: true
           })],
           exports: [_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"]]
         }]
