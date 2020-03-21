@@ -56,31 +56,6 @@ nav .button-item:hover {
   border-color: #00848e;
 }
 
-button+button {
-  margin-left: 8px;
-}
-
-.button-item {
-  color: #00a1b2;
-  outline: 0;
-  font-family: BerninaSansWeb,OpenSans,sans-serif;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 32px;
-  padding: 0 12px;
-  vertical-align: middle;
-  cursor: pointer;
-  transition: box-shadow .1s;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  margin-left: -1px;
-  border: 1px solid #ccc;
-  text-decoration: none;
-  display: inline-block;
-  background-color: #eee;
-  border-radius: 4px;
-}
-
 .button-item.active{
   z-index: 1;
   position: relative;

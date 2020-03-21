@@ -135,3 +135,24 @@ button.delete:hover {
 .scrolltop {
   transform: rotate(180deg);
 }
+
+.add-icon {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-right: 4px;
+  margin-top: 5px;
+  vertical-align: top;
+  fill: white;
+}
+
+.button-item {
+  background: #00a1b2;
+  border-color: #00a1b2;
+  color: #fff;
+}
+
+.button-item:hover {
+  background: #00848e;
+  border-color: #00848e;
+}

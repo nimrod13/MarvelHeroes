@@ -3,8 +3,10 @@
   <div class="flex">
     <input type="text" class="hero_input" dtInput placeholder="Please add hero name" #heroName />
     <!-- (click) passes input value to add() and then clears the input -->
-    <button class="inline-flex" dt-button (click)="add(heroName.value); heroName.value=''">
-      <dt-icon name="plus-add"></dt-icon>
+    <button class="inline-flex button-item" (click)="add(heroName.value); heroName.value=''">
+      <span class="add-icon">
+        <dt-icon name="plus-add"></dt-icon>
+      </span>
       Add
     </button>
   </div>
