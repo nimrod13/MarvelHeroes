@@ -1,59 +1,59 @@
-<div *ngIf="hero" class="details">
-  <h2>{{hero.name | uppercase}}</h2>
+<div *ngIf="hero" class="details__wrapper">
+  <div class="details">
+    <h2>{{hero.name | uppercase}}</h2>
 
-  <div class="details_container">
-    <div class="info_container">
-      <div class="info">
-        <img src="{{getImageSrc()}}" srcset="{{getImageSrcSet()}}" alt="{{hero.name}}" height="200px" appFallbackimg>
-        <div class="info_text_container">
-          <div class="info_row">
-            <label class="hero_label">ID</label>
-            <p class="hero_id">{{hero.id}}</p>
-          </div>
-          <div class="info_row">
-            <label>Name:</label>
-            <!-- <em><span style="display: flex">
+    <div class="details_container">
+      <div class="info_container">
+        <div class="info">
+          <img src="{{getImageSrc()}}" srcset="{{getImageSrcSet()}}" alt="{{hero.name}}" height="200px" appFallbackimg>
+          <div class="info_text_container">
+            <div class="info_row">
+              <label class="hero_label">ID</label>
+              <p class="hero_id">{{hero.id}}</p>
+            </div>
+            <div class="info_row">
+              <label>Name:</label>
+              <!-- <em><span style="display: flex">
                 {{hero.name}}
               </span>
             </em> -->
-            <em dt-inline-editor [(ngModel)]="hero.name" ariaLabelSave="Save name"
-              ariaLabelCancel="Cancel and discard changes"></em>
-          </div>
-          <!-- <div class="info_row">
+              <em dt-inline-editor [(ngModel)]="hero.name" ariaLabelSave="Save name"
+                ariaLabelCancel="Cancel and discard changes"></em>
+            </div>
+            <!-- <div class="info_row">
             <label>Nickname:</label>
             <em dt-inline-editor [(ngModel)]="hero.nickname" ariaLabelSave="Save nickname"
               ariaLabelCancel="Cancel and discard changes"></em>
           </div> -->
-        </div>
-      </div>
-    </div>
-
-    <div class="info_container" *ngIf="getSeriesItems(hero)">
-      <div class="items">
-        <div class="items_text_container">
-          <div>
-            <label>Comic series</label>
-            <p *ngFor="let serie of getSeriesItems(hero)">{{serie.name}}</p>
           </div>
         </div>
       </div>
-    </div>
+
+      <div class="info_container" *ngIf="getSeriesItems(hero)">
+        <div class="items">
+          <div class="items_text_container">
+            <div>
+              <label>Comic series</label>
+              <p *ngFor="let serie of getSeriesItems(hero)">{{serie.name}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
 
 
-    <div class="info_container" *ngIf="getStories(hero)">
-      <div class="items">
-        <div class="items_text_container">
-          <div>
-            <label>Stories</label>
-            <p *ngFor="let story of getStories(hero)">{{story.name}}</p>
+      <div class="info_container" *ngIf="getStories(hero)">
+        <div class="items">
+          <div class="items_text_container">
+            <div>
+              <label>Stories</label>
+              <p *ngFor="let story of getStories(hero)">{{story.name}}</p>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 
-<div class="buttons">
   <button dt-button (click)="goBack()">Go back</button>
   <button dt-button (click)="save()">Save</button>
 </div>
