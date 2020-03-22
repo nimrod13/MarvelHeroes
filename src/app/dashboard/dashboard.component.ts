@@ -29,6 +29,6 @@ export class DashboardComponent implements OnInit {
   }
 
   getRandomHeroes(heroes: Hero[]) {
-    return heroes.sort(() => 0.5 - Math.random()).slice(0, 4);
+    return heroes.sort(() => 0.5 - Math.random()).slice(0, 8);
   }
 }

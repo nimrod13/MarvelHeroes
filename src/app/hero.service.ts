@@ -191,6 +191,6 @@ export class HeroService {
       return this.searchHeroes(term);
     }
 
-    return of(heroesLocal.filter(h => h.name.includes(term)));
+    return of(heroesLocal.filter(h => h.name.toLowerCase().includes(term)));
   }
 }

@@ -1,18 +1,13 @@
 /* DashboardComponent's private CSS styles */
-[class*='col-'] {
-  float: left;
-  padding-right: 20px;
-  padding-bottom: 20px;
-}
-
-[class*='col-']:last-of-type {
+/* [class*='col-']:last-of-type {
   padding-right: 0;
-}
+} */
 
 a {
   text-decoration: none;
+  width: 175px;
   padding: 10px;
-  width: 25%;
+  flex: 1 0 auto;
 }
 
 *,
@@ -30,14 +25,22 @@ h2 {
 h4 {
   position: relative;
   max-height: 44px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .grid {
   margin: 0;
 }
 
-.col-1-4 {
+/* .col-1-4 {
   width: 25%;
+} */
+
+.row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 
 .module {
@@ -48,9 +51,6 @@ h4 {
   min-width: 120px;
   /* background-color: #00848e; */
   border-radius: 2px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .module.hero:hover {
@@ -65,28 +65,24 @@ h4 {
   border-radius: 3px;
   box-shadow: 2px 3px 2px 0 rgba(9, 130, 154, 0.2);
   background: linear-gradient(rgba(0, 132, 142), rgba(0, 132, 142, 0.69));
+  display: flex;
+  align-items: center;
+  /* Vertical center alignment */
+  justify-content: center;
+  /* Horizontal center alignment */
 }
 
 .grid-pad {
   padding: 10px 0;
 }
 
-.grid.grid-pad {
-  display: flex;
-}
-
 @media (max-width: 600px) {
   .module {
-    font-size: 10px;
+    font-size: 11px;
     max-height: 75px;
   }
 
-  .module.hero {
-    padding: 10px;
-    min-height: 80px;
-  }
-
-  a{
+  a {
     padding: 7px;
   }
 }
