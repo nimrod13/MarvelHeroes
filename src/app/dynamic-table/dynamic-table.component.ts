@@ -24,7 +24,7 @@ export class DynamicTableComponent implements AfterViewInit, OnInit {
   }>;
 
   ngOnInit(): void {
-    this.data = this.heroService.heroesLocal;
+    this.data = this.heroService.tryGetHeroesFromLocalStorage();
     this.dataSource = new DtTableDataSource(this.data);
   }
 

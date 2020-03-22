@@ -12,7 +12,7 @@
   </div>
 
   <div class="heroes" *ngIf="heroService.tryGetHeroesFromLocalStorage()" #heroesContainer>
-    <li *ngFor="let hero of heroService.heroesLocal">
+    <li *ngFor="let hero of heroService.tryGetHeroesFromLocalStorage()">
       <a routerLink="/detail/{{hero.id}}">
         <span class="badge">{{hero.id}}</span>
         <span class="name">{{hero.name}}</span>
