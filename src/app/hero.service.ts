@@ -38,7 +38,7 @@ export class HeroService {
 
   tryGetHeroesFromLocalStorage() {
     const heroes = localStorage.getItem('testHeroes');
-    return heroes && heroes.length ? this.heroesLocal = JSON.parse(heroes) : null;
+    return heroes && heroes.length ? JSON.parse(heroes) : null;
   }
 
   // getHeroes(): Observable<Hero[]> {
@@ -117,7 +117,7 @@ export class HeroService {
   }
 
   updateLocalHero(hero: Hero): void {
-    const heroesLocal: [] = this.heroesLocal || this.tryGetHeroesFromLocalStorage();
+    const heroesLocal: [] = this.tryGetHeroesFromLocalStorage();
     if (!heroesLocal) {
       this.getHeroes().subscribe(heroes => { this.addHeroesToLocalStorage(heroesLocal); this.updateHeroName(hero, heroes); });
       return;
