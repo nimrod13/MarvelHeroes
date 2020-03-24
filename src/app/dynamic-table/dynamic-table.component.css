@@ -1,0 +1,278 @@
+dt-table-search {
+  margin: 10px 0;
+}
+
+.heroes_container {
+  margin: 0 10px;
+}
+
+.hero_input {
+  display: inline-flex;
+  margin-right: 10px;
+}
+
+.inline-flex {
+  display: inline-flex;
+}
+
+.flex {
+  display: flex;
+}
+
+button {
+  background-color: #eee;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  cursor: hand;
+}
+
+button:hover {
+  background-color: #cfd8dc;
+}
+
+button.delete {
+  background-color: gray;
+  color: white;
+  padding: 4px 10px;
+  float: right;
+}
+
+button.delete:hover {
+  background-color: #9c5061;
+}
+
+.inline {
+  width: 100%;
+  display: inline-block;
+}
+
+.inline input {
+  width: 75%;
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.heroes_container {
+  border-top: 3px solid #c7bb63;
+  padding-top: 16px;
+  border-radius: 8px;
+  -webkit-box-shadow: 0 2px 4px 0 rgba(14, 30, 37, .12);
+  box-shadow: 0 2px 4px 0 rgba(14, 30, 37, .12);
+  padding: 20px;
+  border-bottom: 1px solid rgba(14, 30, 37, .12);
+  background: white;
+}
+
+.scroll {
+  transform: rotate(0);
+  z-index: 20;
+  width: 40px;
+  height: 40px;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  fill: #00a1b2;
+  -webkit-transition: transform .35s ease-in-out;
+  transition: transform .35s ease-in-out;
+  transition-delay: 1s;
+  cursor: pointer;
+}
+
+.scrolltop {
+  transform: rotate(180deg);
+}
+
+@media (max-width: 440px) {
+  .scroll {
+    background: #e0e0e0b8;
+    border: 1px solid #45464626
+  }
+
+  .heroes {
+    width: 100%;
+  }
+
+  .heroes a {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px;
+  }
+}
+
+.add-icon,
+.delete-icon {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-right: 4px;
+  margin-top: 5px;
+  vertical-align: top;
+}
+
+.add-icon {
+  fill: white;
+}
+
+.delete-icon {
+  fill: #00a1b2;
+}
+
+.delete-icon:hover {
+  transform: scale(1.05);
+}
+
+.button-item {
+  background: #00a1b2;
+  border-color: #00a1b2;
+  color: #fff;
+}
+
+.button-item:hover {
+  background: #00848e;
+  border-color: #00848e;
+}
+
+dt-row:hover {
+  cursor: pointer;
+}
+
+body,
+html {
+  margin: 0px;
+  padding: 0px;
+  font-family: 'Titillium Web', sans-serif;
+  font-size: 23px;
+  line-height: 42px;
+  font-weight: 100;
+  text-align: center;
+  height: 100%;
+}
+
+section {
+  /* background: #dce7eb; */
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+body,
+html {
+  margin: 0px;
+  padding: 0px;
+  font-family: 'Titillium Web', sans-serif;
+  font-size: 23px;
+  line-height: 42px;
+  font-weight: 100;
+  text-align: center;
+  height: 100%;
+}
+
+section {
+  /* background: #dce7eb; */
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+/* .dt-table-interactive-rows:hover {
+  background: #00a1b229;
+  border: none;
+} */
+
+.trash {
+  background: #00a1b2;
+  width: 16.5px;
+  height: 15px;
+  display: inline-block;
+  margin: 0 auto;
+  margin-top: 9px;
+
+  position: relative;
+  -webkit-border-bottom-right-radius: 3px;
+  -webkit-border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+
+.trash:after {
+  position: absolute;
+  left: -24.5px;
+  right: 0;
+  bottom: -12.5px;
+  width: 75px;
+}
+
+.trash span {
+  position: absolute;
+  height: 3px;
+  background: #00a1b2;
+  top: -4.5px;
+  left: -2.5px;
+  right: -2.5px;
+
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  transform: rotate(0deg);
+  transition: transform 250ms;
+  transform-origin: 19% 100%;
+}
+
+.trash span:after {
+  content: '';
+  position: absolute;
+  width: 6.5px;
+  height: 1.75px;
+  background: #00a1b2;
+  top: -2.5px;
+
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  transform: rotate(0deg);
+  transition: transform 250ms;
+  transform-origin: 19% 100%;
+  left: 6.75px;
+}
+
+
+.trash i {
+  position: relative;
+  width: 1.75px;
+  height: 12.5px;
+  background: #fff;
+  display: block;
+  margin: 3.5px auto;
+  border-radius: 2.5px;
+}
+
+.trash i:after {
+  content: '';
+  width: 1.75px;
+  height: 12.5px;
+  background: #fff;
+  position: absolute;
+  left: -4.5px;
+  border-radius: 2.5px;
+}
+
+.trash i:before {
+  content: '';
+  width: 1.75px;
+  height: 12.5px;
+  background: #fff;
+  position: absolute;
+  right: -4.5px;
+  border-radius: 2.5px;
+}
+
+.trash:hover span {
+  transform: rotate(-45deg);
+  transition: transform 250ms;
+}
+
+.empty{
+  border: 1px solid red;
+}

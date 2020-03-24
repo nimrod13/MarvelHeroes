@@ -1,29 +1,21 @@
 <div class="heroes_container">
   <h2>Heroes</h2>
-  <div class="flex">
-    <input type="text" class="hero_input" dtInput placeholder="Please add hero name" #heroName />
-    <!-- (click) passes input value to add() and then clears the input -->
-    <button class="inline-flex button-item" (click)="add(heroName.value); heroName.value=''">
-      <span class="add-icon">
-        <dt-icon name="plus-add"></dt-icon>
-      </span>
-      Add
-    </button>
+  <div #heroesContainer>
+    <app-dynamic-table></app-dynamic-table>
   </div>
 
-  <div class="heroes" *ngIf="heroService.tryGetHeroesFromLocalStorage()" #heroesContainer>
+  <!-- <div class="heroes" *ngIf="heroService.tryGetHeroesFromLocalStorage()" #heroesContainer>
     <li *ngFor="let hero of heroService.tryGetHeroesFromLocalStorage()">
       <a routerLink="/detail/{{hero.id}}">
         <span class="badge">{{hero.id}}</span>
         <span class="name">{{hero.name}}</span>
       </a>
       <button class="delete" title="delete hero" (click)="delete(hero)">
-        <!-- <dt-icon name="abort"></dt-icon> -->
         x
       </button>
     </li>
-  </div>
+  </div> -->
 
   <dt-icon name="dropdownopen" class="scroll" [class.scrolltop]="!isTop" (click)="toggleScroll()"></dt-icon>
-  <!-- <app-dynamic-table></app-dynamic-table> -->
+
 </div>

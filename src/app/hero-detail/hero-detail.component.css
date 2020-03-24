@@ -88,9 +88,9 @@ button:disabled {
   border-right: 1px solid #e1e1e1;
 }
 
-.info_row+.info_row {
+/* .info_row+.info_row {
   margin: 10px 0 0;
-}
+} */
 
 .hero_id_label {
   font-family: Roboto, Trebuchet MS, Helvetica, Arial, sans-serif;

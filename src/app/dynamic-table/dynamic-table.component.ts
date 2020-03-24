@@ -1,8 +1,10 @@
-import { Component, AfterViewInit, ViewChildren, QueryList, OnInit } from '@angular/core';
+import { Component, AfterViewInit, ViewChildren, QueryList, OnInit, ViewChild, Input } from '@angular/core';
 import { DtPagination } from '@dynatrace/barista-components/pagination';
-import { DtTableDataSource } from '@dynatrace/barista-components/table';
+import { DtTableDataSource, DtSort, DtTableSearch, DtTable } from '@dynatrace/barista-components/table';
 import { startWith } from 'rxjs/operators';
 import { HeroService } from '../hero.service';
+import { Hero } from '../hero';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dynamic-table',
@@ -11,24 +13,81 @@ import { HeroService } from '../hero.service';
 })
 
 export class DynamicTableComponent implements AfterViewInit, OnInit {
-  constructor(
-    private heroService: HeroService
-  ) { }
-
-  public data;
+  private data: Hero[];
   @ViewChildren(DtPagination) paginationList: QueryList<DtPagination>;
+  @ViewChild(DtTableSearch, { static: true })
+  tableSearch: DtTableSearch;
+  searchValue = '';
+  emptyNameAttempt: boolean;
+
+  // Get the viewChild to pass the sorter reference to the datasource.
+  @ViewChild('sortable', { read: DtSort, static: true }) sortable: DtSort;
+
+  @ViewChild('heroesTable') heroesTable: DtTable<any>;
+  @ViewChild('pagination') pagination: DtPagination;
+
+  // Initialize the table's data source
   public dataSource: DtTableDataSource<{
     id: number;
     name: string;
-    favorite: boolean;
+    favorite?: boolean;
   }>;
+
+  constructor(private heroService: HeroService, private router: Router) { }
 
   ngOnInit(): void {
     this.data = this.heroService.tryGetHeroesFromLocalStorage();
-    this.dataSource = new DtTableDataSource(this.data);
+    if (!this.data) {
+      this.heroService.getHeroes().subscribe(heroes => this.onGetHeroes(heroes));
+    } else {
+      this.dataSource = new DtTableDataSource(this.data);
+    }
+  }
+
+  add(name: string): void {
+    name = name.trim();
+
+    if (!name) {
+      this.emptyNameAttempt = true;
+      return;
+    }
+
+    this.emptyNameAttempt = false;
+    const heroesLocal = this.heroService.tryGetHeroesFromLocalStorage();
+    const newId = Math.max.apply(null, heroesLocal.map(h => h.id)) + 1;
+    heroesLocal && heroesLocal.push({
+      name, id: newId, series: {}, stories: {}, nickname: name,
+      thumbnail: { path: 'https://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available', extension: 'jpg' }
+    });
+    this.heroService.addHeroesToLocalStorage(heroesLocal).subscribe(h => this.updateDataSource(h, true));
+    // this.scrollToBottom();
+  }
+
+  updateDataSource(newData: Hero[], goToEnd: boolean = false) {
+    this.data = newData;
+    this.dataSource = new DtTableDataSource(newData);
+    this.dataSource.sort = this.sortable;
+    this.dataSource.search = this.tableSearch;
+    this.dataSource.pagination = goToEnd ? this.paginationList.last : this.paginationList.first;
+
+    if (goToEnd) {
+      this.pagination.currentPage = this.pagination.numberOfPages;
+    }
+  }
+
+  onGetHeroes(heroes: Hero[]) {
+    heroes.map(h => h.nickname = h.name);
+    this.data = heroes;
+    this.heroService.addHeroesToLocalStorage(heroes).subscribe(h => this.updateDataSource(h));
   }
 
   ngAfterViewInit(): void {
+    this.dataSource.sort = this.sortable;
+    this.dataSource.search = this.tableSearch;
+    this.paginationChanges();
+  }
+
+  paginationChanges() {
     this.paginationList.changes.pipe(startWith(null)).subscribe(() => {
       if (this.paginationList.first) {
         this.dataSource.pagination = this.paginationList.first;
@@ -39,15 +98,13 @@ export class DynamicTableComponent implements AfterViewInit, OnInit {
     });
   }
 
-  toggleFavorite(toggledRow: any): void {
-    // Modify a data clone and assign the changed state at the end
-    // to notify change detection about the dataChange in an array.
-    const modifiedData = [...this.data];
-    for (const row of modifiedData) {
-      if (row === toggledRow) {
-        row.favorite = !row.favorite;
-      }
-    }
-    this.data = modifiedData;
+  deleteHero(id: number): void {
+    let heroesLocal = this.heroService.tryGetHeroesFromLocalStorage();
+    heroesLocal = heroesLocal.filter((h: Hero) => h.id !== id);
+    this.heroService.addHeroesToLocalStorage(heroesLocal).subscribe(h => this.updateDataSource(h));
+  }
+
+  navigateToDetails(id: number) {
+    this.router.navigate(['/detail/', id]);
   }
 }

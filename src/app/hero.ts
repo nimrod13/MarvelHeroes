@@ -5,4 +5,5 @@ export class Hero {
   stories: { available?: number, items?: [{ resourceURI: string, name: string }] };
   thumbnail: { path?: string, extension?: string };
   nickname?: string;
+  favorite?: boolean;
 }

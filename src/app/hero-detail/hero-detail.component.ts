@@ -25,9 +25,9 @@ export class HeroDetailComponent implements OnInit {
       this.getHero();
     }
 
-    // if (!this.hero.nickname) {
-    //   this.hero.nickname = this.hero.name;
-    // }
+    if (!this.hero.nickname) {
+      this.hero.nickname = this.hero.name;
+    }
   }
 
   getHero(): void {

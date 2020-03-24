@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Hero } from './hero';
-import { Observable, of } from 'rxjs';
+import { Observable, of, BehaviorSubject } from 'rxjs';
 import { MessageService } from './message.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
@@ -11,7 +11,6 @@ import { DtToast } from '@dynatrace/barista-components/toast';
 })
 
 export class HeroService {
-  private heroesUrl = 'api/heroes';  // URL to web api
   private marvelAPI: { ts: string, publicKey: string, privateKey: string, hash: string } = {
     ts: '1',
     publicKey: 'ce160eefcb9aebd904aebc4b26834292',
@@ -22,21 +21,22 @@ export class HeroService {
   private marvelAPIBaseURL = 'https://gateway.marvel.com/v1/public/characters';
   private marvelAPIQueryParams = `ts=${this.marvelAPI.ts}&apikey=${this.marvelAPI.publicKey}&hash=${this.marvelAPI.hash}`;
 
+  httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  };
+
   constructor(
     private http: HttpClient,
     private messageService: MessageService,
     private toast: DtToast) { }
 
-  httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  };
-
   addHeroesToLocalStorage(heroes: Hero[]) {
-    heroes && localStorage.setItem('testHeroes', JSON.stringify(heroes));
+    heroes && localStorage.setItem('localHeroes', JSON.stringify(heroes));
+    return of(heroes);
   }
 
   tryGetHeroesFromLocalStorage() {
-    const heroes = localStorage.getItem('testHeroes');
+    const heroes = localStorage.getItem('localHeroes');
     return heroes && heroes.length ? JSON.parse(heroes) : null;
   }
 
@@ -109,7 +109,8 @@ export class HeroService {
 
   /** PUT: update the hero on the server */
   updateHero(hero: Hero): Observable<any> {
-    return this.http.put(this.heroesUrl, hero, this.httpOptions).pipe(
+    const url = `${this.marvelAPIBaseURL}?${this.marvelAPIQueryParams}`;
+    return this.http.put(url, hero, this.httpOptions).pipe(
       tap(_ => this.log(`updated hero id=${hero.id}`)),
       catchError(this.handleError<any>('updateHero'))
     );
@@ -133,12 +134,12 @@ export class HeroService {
       return;
     }
 
-    if (heroCurrent.name === hero.name) {
+    if (heroCurrent.nickname === hero.nickname) {
       this.toast.create('You have not made any changes!');
       return;
     }
 
-    heroCurrent.name = hero.name; // only first found item is changed;
+    heroCurrent.nickname = hero.nickname; // only first found item is changed;
     this.addHeroesToLocalStorage(heroes);
     this.toast.create('Your changes have been saved!');
     // this.heroes.forEach((element, index) => {  //to change all names
@@ -150,7 +151,8 @@ export class HeroService {
 
   /** POST: add a new hero to the server */
   addHero(hero: Hero): Observable<Hero> {
-    return this.http.post<Hero>(this.heroesUrl, hero, this.httpOptions).pipe(
+    const url = `${this.marvelAPIBaseURL}?${this.marvelAPIQueryParams}`;
+    return this.http.post<Hero>(url, hero, this.httpOptions).pipe(
       tap((newHero: Hero) => this.log(`added hero w/ id=${newHero.id}`)),
       catchError(this.handleError<Hero>('addHero'))
     );
@@ -159,7 +161,7 @@ export class HeroService {
   /** DELETE: delete the hero from the server */
   deleteHero(hero: Hero | number): Observable<Hero> {
     const id = typeof hero === 'number' ? hero : hero.id;
-    const url = `${this.heroesUrl}/${id}`;
+    const url = `${this.marvelAPIBaseURL}/${id}?${this.marvelAPIQueryParams}`;
 
     return this.http.delete<Hero>(url, this.httpOptions).pipe(
       tap(_ => this.log(`deleted hero id=${id}`)),
@@ -177,8 +179,8 @@ export class HeroService {
     const url = `${this.marvelAPIBaseURL}?nameStartsWith=${term}&${this.marvelAPIQueryParams}`;
     return this.http.get<any>(url).pipe(
       tap(x => x.status === 'Ok' && x.data.results.length ?
-        this.log(`found heroes matching "${term}"`) :
-        this.log(`no heroes matching "${term}"`),
+        this.log(`Found heroes matching "${term}"`) :
+        this.log(`No heroes matching "${term}"`),
       ),
       map(res => res.data.results),
       catchError(this.handleError<Hero[]>('searchHeroes', [])),
@@ -191,6 +193,9 @@ export class HeroService {
       return this.searchHeroes(term);
     }
 
-    return of(heroesLocal.filter(h => h.name.toLowerCase().includes(term)));
+    const heroesResults = heroesLocal.filter(h => h.name.toLowerCase().includes(term.toLowerCase()));
+    heroesResults.length ? this.log(`Found heroes matching "${term}"`) : this.log(`no heroes matching "${term}"`);
+
+    return of(heroesResults);
   }
 }
