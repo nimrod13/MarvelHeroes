@@ -1,5 +1,5 @@
 <div class="flex">
-  <input type="text" class="hero_input" [class.empty]="emptyNameAttempt" dtInput placeholder="Please ennter hero name" #heroName />
+  <input type="text" class="hero_input" [class.empty]="emptyNameAttempt" dtInput placeholder="Please enter hero name" #heroName />
   <button class="inline-flex button-item" (click)="add(heroName.value); heroName.value=''">
     <span class="add-icon">
       <dt-icon name="plus-add"></dt-icon>

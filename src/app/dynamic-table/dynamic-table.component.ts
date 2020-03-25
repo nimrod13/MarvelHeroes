@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 })
 
 export class DynamicTableComponent implements AfterViewInit, OnInit {
-  private data: Hero[];
+  private data: Hero[] | any;
   @ViewChildren(DtPagination) paginationList: QueryList<DtPagination>;
   @ViewChild(DtTableSearch, { static: true })
   tableSearch: DtTableSearch;
@@ -30,16 +30,17 @@ export class DynamicTableComponent implements AfterViewInit, OnInit {
   public dataSource: DtTableDataSource<{
     id: number;
     name: string;
-    favorite?: boolean;
+    nickname?: string;
   }>;
 
   constructor(private heroService: HeroService, private router: Router) { }
 
   ngOnInit(): void {
-    this.data = this.heroService.tryGetHeroesFromLocalStorage();
-    if (!this.data) {
+    const localHeroes = this.heroService.tryGetHeroesFromLocalStorage();
+    if (!localHeroes) {
       this.heroService.getHeroes().subscribe(heroes => this.onGetHeroes(heroes));
     } else {
+      this.data = localHeroes.map(({ stories, description, comics, series, events, modified, urls, thumbnail, ...item }) => item);
       this.dataSource = new DtTableDataSource(this.data);
     }
   }
@@ -63,7 +64,8 @@ export class DynamicTableComponent implements AfterViewInit, OnInit {
     // this.scrollToBottom();
   }
 
-  updateDataSource(newData: Hero[], goToEnd: boolean = false) {
+  updateDataSource(heroes: any, goToEnd: boolean = false, registerPaginationChanges: boolean = false) {
+    const newData = heroes.map(({ stories, description, comics, series, events, modified, urls, thumbnail, ...item }) => item);
     this.data = newData;
     this.dataSource = new DtTableDataSource(newData);
     this.dataSource.sort = this.sortable;
@@ -73,18 +75,22 @@ export class DynamicTableComponent implements AfterViewInit, OnInit {
     if (goToEnd) {
       this.pagination.currentPage = this.pagination.numberOfPages;
     }
+
+    registerPaginationChanges && this.paginationChanges();
   }
 
   onGetHeroes(heroes: Hero[]) {
     heroes.map(h => h.nickname = h.name);
     this.data = heroes;
-    this.heroService.addHeroesToLocalStorage(heroes).subscribe(h => this.updateDataSource(h));
+    this.heroService.addHeroesToLocalStorage(heroes).subscribe(h => this.updateDataSource(h, false, true));
   }
 
   ngAfterViewInit(): void {
-    this.dataSource.sort = this.sortable;
-    this.dataSource.search = this.tableSearch;
-    this.paginationChanges();
+    if (this.dataSource) {
+      this.dataSource.sort = this.sortable;
+      this.dataSource.search = this.tableSearch;
+      this.paginationChanges();
+    }
   }
 
   paginationChanges() {
