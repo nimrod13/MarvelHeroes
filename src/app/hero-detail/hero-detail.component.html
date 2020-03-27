@@ -13,18 +13,13 @@
             </div>
             <div class="info_row">
               <label>Name:</label>
-              <!-- <em><span style="display: flex">
-                {{hero.name}}
-              </span>
-            </em> -->
-              <em dt-inline-editor [(ngModel)]="hero.name" ariaLabelSave="Save name"
-                ariaLabelCancel="Cancel and discard changes"></em>
+              <span aria-label="Name">{{hero.name}}</span>
             </div>
             <div class="info_row">
-            <label>Nickname:</label>
-            <em dt-inline-editor [(ngModel)]="hero.nickname" ariaLabelSave="Save nickname"
-              ariaLabelCancel="Cancel and discard changes"></em>
-          </div>
+              <label>Nickname:</label>
+              <em dt-inline-editor [(ngModel)]="hero.nickname" ariaLabelSave="Save nickname"
+                ariaLabelCancel="Cancel and discard changes"></em>
+            </div>
           </div>
         </div>
       </div>

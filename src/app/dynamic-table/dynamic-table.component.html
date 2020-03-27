@@ -24,8 +24,7 @@
     </ng-container>
     <ng-container dtColumnDef="id">
       <dt-header-cell *dtHeaderCellDef dt-sort-header>ID</dt-header-cell>
-      <dt-cell *dtCellDef="let row" (click)="navigateToDetails(row.id)">{{row.id}}
-      </dt-cell>
+      <dt-cell *dtCellDef="let row" (click)="navigateToDetails(row.id)">{{row.id}}</dt-cell>
     </ng-container>
     <ng-container dtColumnDef="delete">
       <dt-header-cell *dtHeaderCellDef></dt-header-cell>
