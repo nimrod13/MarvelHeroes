@@ -1,9 +1,11 @@
-  <form #f="ngForm">
+  <form #f="ngForm" (ngSubmit)="f.resetForm()">
     <div class="flex">
-      <input type="text" name="heroName" class="hero_input" [class.empty]="heroName.value.trim().length < 1" minlength="1" dtInput
-        placeholder="Please enter hero name" #heroName required ngModel />
-      <button type="submit" class="inline-flex button-item" (click)="add(heroName.value); heroName.value=''">
-        <span class="add-icon"><dt-icon name="plus-add"></dt-icon></span>
+      <input type="text" name="heroName" class="hero_input" [class.empty]="heroName.value.trim().length < 1"
+        minlength="1" dtInput placeholder="Please enter hero name" #heroName required ngModel />
+      <button type="submit" class="inline-flex button-item" (click)="add(heroName.value)">
+        <span class="add-icon">
+          <dt-icon name="plus-add"></dt-icon>
+        </span>
         Add
       </button>
     </div>
