@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, ViewChildren, QueryList, OnInit, ViewChild, Input } from '@angular/core';
+import { Component, AfterViewInit, ViewChildren, QueryList, OnInit, ViewChild } from '@angular/core';
 import { DtPagination } from '@dynatrace/barista-components/pagination';
 import { DtTableDataSource, DtSort, DtTableSearch, DtTable } from '@dynatrace/barista-components/table';
 import { startWith } from 'rxjs/operators';

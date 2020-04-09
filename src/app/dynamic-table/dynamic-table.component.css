@@ -194,7 +194,7 @@ section {
   display: inline-block;
   margin: 0 auto;
   margin-top: 9px;
-
+  cursor: pointer;
   position: relative;
   -webkit-border-bottom-right-radius: 3px;
   -webkit-border-bottom-left-radius: 3px;
@@ -277,6 +277,6 @@ section {
   transition: transform 250ms;
 }
 
-.empty {
+input.ng-dirty.empty:not(:focus), .dt-input-invalid.ng-invalid.empty:not(:focus) {
   border: 1px solid red;
 }

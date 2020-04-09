@@ -1,44 +1,45 @@
-<div class="flex">
-  <input type="text" class="hero_input" [class.empty]="emptyNameAttempt" dtInput placeholder="Please enter hero name" #heroName />
-  <button class="inline-flex button-item" (click)="add(heroName.value); heroName.value=''">
-    <span class="add-icon">
-      <dt-icon name="plus-add"></dt-icon>
-    </span>
-    Add
-  </button>
-</div>
+  <form #f="ngForm">
+    <div class="flex">
+      <input type="text" name="heroName" class="hero_input" [class.empty]="heroName.value.trim().length < 1" minlength="1" dtInput
+        placeholder="Please enter hero name" #heroName required ngModel />
+      <button type="submit" class="inline-flex button-item" (click)="add(heroName.value); heroName.value=''">
+        <span class="add-icon"><dt-icon name="plus-add"></dt-icon></span>
+        Add
+      </button>
+    </div>
+  </form>
 
-<ng-container>
-  <dt-table-search name="tableSearch" [(ngModel)]="searchValue" placeholder="Search table data..."
-    aria-label="Search table data"></dt-table-search>
-  <dt-table [dataSource]="dataSource" interactiveRows dtSort #sortable #heroesTable class="heroes">
-    <ng-container dtColumnDef="name">
-      <dt-header-cell *dtHeaderCellDef dt-sort-header>Name</dt-header-cell>
-      <dt-cell *dtCellDef="let row" (click)="navigateToDetails(row.id)">{{row.name}}
-      </dt-cell>
-    </ng-container>
-    <ng-container dtColumnDef="nickname">
-      <dt-header-cell *dtHeaderCellDef dt-sort-header>Nickname</dt-header-cell>
-      <dt-cell *dtCellDef="let row" (click)="navigateToDetails(row.id)">{{row.nickname}}
-      </dt-cell>
-    </ng-container>
-    <ng-container dtColumnDef="id">
-      <dt-header-cell *dtHeaderCellDef dt-sort-header>ID</dt-header-cell>
-      <dt-cell *dtCellDef="let row" (click)="navigateToDetails(row.id)">{{row.id}}</dt-cell>
-    </ng-container>
-    <ng-container dtColumnDef="delete">
-      <dt-header-cell *dtHeaderCellDef></dt-header-cell>
-      <dt-cell *dtCellDef="let row">
-        <span class="trash" (click)="deleteHero(row.id)">
-          <span></span>
-          <i></i>
-          <!-- <dt-icon aria-label="Delete" name="delete">delete</dt-icon> -->
-        </span>
-      </dt-cell>
-    </ng-container>
+  <ng-container>
+    <dt-table-search name="tableSearch" [(ngModel)]="searchValue" placeholder="Search table data..."
+      aria-label="Search table data"></dt-table-search>
+    <dt-table [dataSource]="dataSource" interactiveRows dtSort #sortable #heroesTable class="heroes">
+      <ng-container dtColumnDef="name">
+        <dt-header-cell *dtHeaderCellDef dt-sort-header>Name</dt-header-cell>
+        <dt-cell *dtCellDef="let row" (click)="navigateToDetails(row.id)">{{row.name}}
+        </dt-cell>
+      </ng-container>
+      <ng-container dtColumnDef="nickname">
+        <dt-header-cell *dtHeaderCellDef dt-sort-header>Nickname</dt-header-cell>
+        <dt-cell *dtCellDef="let row" (click)="navigateToDetails(row.id)">{{row.nickname}}
+        </dt-cell>
+      </ng-container>
+      <ng-container dtColumnDef="id">
+        <dt-header-cell *dtHeaderCellDef dt-sort-header>ID</dt-header-cell>
+        <dt-cell *dtCellDef="let row" (click)="navigateToDetails(row.id)">{{row.id}}</dt-cell>
+      </ng-container>
+      <ng-container dtColumnDef="delete">
+        <dt-header-cell *dtHeaderCellDef></dt-header-cell>
+        <dt-cell *dtCellDef="let row" style="cursor: initial;">
+          <span class="trash" (click)="deleteHero(row.id)">
+            <span></span>
+            <i></i>
+            <!-- <dt-icon aria-label="Delete" name="delete">delete</dt-icon> -->
+          </span>
+        </dt-cell>
+      </ng-container>
 
-    <dt-header-row *dtHeaderRowDef="['id', 'name', 'nickname','delete']"></dt-header-row>
-    <dt-row *dtRowDef="let row; columns: ['id', 'name', 'nickname', 'delete']"></dt-row>
-  </dt-table>
-  <dt-pagination #pagination></dt-pagination>
-</ng-container>
+      <dt-header-row *dtHeaderRowDef="['id', 'name', 'nickname','delete']"></dt-header-row>
+      <dt-row *dtRowDef="let row; columns: ['id', 'name', 'nickname', 'delete']"></dt-row>
+    </dt-table>
+    <dt-pagination #pagination></dt-pagination>
+  </ng-container>
