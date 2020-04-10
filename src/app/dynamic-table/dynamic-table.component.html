@@ -1,6 +1,6 @@
-  <form #f="ngForm" (ngSubmit)="f.resetForm()">
+  <form #f="ngForm" (ngSubmit)="f.valid && f.resetForm()">
     <div class="flex">
-      <input type="text" name="heroName" class="hero_input" [class.empty]="heroName.value.trim().length < 1"
+      <input type="text" name="heroName" class="hero_input" [class.empty]="!heroName.value.trim().length"
         minlength="1" dtInput placeholder="Please enter hero name" #heroName required ngModel />
       <button type="submit" class="inline-flex button-item" (click)="add(heroName.value)">
         <span class="add-icon">
